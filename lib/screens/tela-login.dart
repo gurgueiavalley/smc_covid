@@ -68,17 +68,10 @@ class _Tela_LoginState extends State<Tela_Login> {
           ),
 
 
-
-
-
           Expanded(child: Container()),
 
           Text('By ADS V', style: TextStyle(color: Colors.white),),
           SizedBox(height: 20,)
-          
-        
-
-
 
         ],
       ),

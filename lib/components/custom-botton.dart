@@ -9,18 +9,12 @@ class CustomButton extends StatefulWidget {
   final color;
   const CustomButton( {Key key, this.title, this.icon, this.onPressed, this.color}): super(key: key);
 
-
-
-
-
   @override
   _CustomButtonState createState() => _CustomButtonState();
 }
 
 class _CustomButtonState extends State<CustomButton> {
   bool status=true;
-
-
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smccovid/constants/constants.dart';
 
 
 class CustomButton extends StatefulWidget {

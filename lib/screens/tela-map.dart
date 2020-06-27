@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:smccovid/components/custom-map.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
 
@@ -40,8 +41,7 @@ class _TelaMapaState extends State<TelaMapa> {
                             color: Colors.white),
                       ),
                       CircleAvatar(
-                        backgroundImage: 
-                        NetworkImage('https://cdn.pixabay.com/photo/2014/08/28/08/31/model-429733_960_720.jpg'),
+                        backgroundImage: NetworkImage(imageUrl)
                       )
                     ],
                   ),
@@ -111,7 +111,10 @@ class _TelaMapaState extends State<TelaMapa> {
                 ],
               ),
             ),
-          )
+          ),
+          SafeArea(
+            child: Padding(padding: EdgeInsets.only(top: 212), child: MapCustom(),) 
+          ),
         ],
       ),
     );

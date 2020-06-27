@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:smccovid/components/custom-botton.dart';
 import 'package:smccovid/constants/constants.dart';
+import 'package:smccovid/screens/home.dart';
 import 'package:smccovid/screens/tela-map.dart';
 import 'sign_in.dart';
 
@@ -53,7 +54,7 @@ class _Tela_LoginState extends State<Tela_Login> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return TelaMapa();
+                      return Home();
                     },
                   ),
                 );

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "661408979371",
-    "firebase_url": "https://projetocovid-f43ad.firebaseio.com",
-    "project_id": "projetocovid-f43ad",
-    "storage_bucket": "projetocovid-f43ad.appspot.com"
+    "project_number": "732741908906",
+    "firebase_url": "https://covid-4f1af.firebaseio.com",
+    "project_id": "covid-4f1af",
+    "storage_bucket": "covid-4f1af.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:661408979371:android:371b04f06af3b9501c9aee",
+        "mobilesdk_app_id": "1:732741908906:android:29f3d66a26a841270553d3",
         "android_client_info": {
           "package_name": "com.example.smccovid"
         }
       },
       "oauth_client": [
         {
-          "client_id": "661408979371-d0cffgkq46mbm1sdoeus7au4uspfgibn.apps.googleusercontent.com",
+          "client_id": "732741908906-dhrqtqdkov61pukrs5ncjj3umitmb9tk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.smccovid",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "661408979371-ennah6184eg50hf93keg8b7v6c2to9es.apps.googleusercontent.com",
+          "client_id": "732741908906-7mou1mr3ks30nu0h52b3i79o68spdi5r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA3YQAO09UkwGcpZjKCzGuIS-9N76dxhfk"
+          "current_key": "AIzaSyALdmTWk4-NfSeRDBUpav8ujmHRgDJmHAo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "661408979371-ennah6184eg50hf93keg8b7v6c2to9es.apps.googleusercontent.com",
+              "client_id": "732741908906-7mou1mr3ks30nu0h52b3i79o68spdi5r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

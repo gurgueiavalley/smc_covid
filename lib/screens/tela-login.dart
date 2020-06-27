@@ -49,11 +49,15 @@ class _Tela_LoginState extends State<Tela_Login> {
                   color: cor_base, fontSize: 25, fontWeight: FontWeight.bold),
             ),
             onPressed: () {
-              signInWithGoogle();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) {
-                return TelaMapa();
-              }), ModalRoute.withName('/'));
+              signInWithGoogle().whenComplete(() {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return TelaMapa();
+                    },
+                  ),
+                );
+              });
             },
           ),
           SizedBox(

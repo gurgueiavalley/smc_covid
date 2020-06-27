@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+import 'package:smccovid/components/custom-botton.dart';
+import 'package:smccovid/constants/constants.dart';
+
+class TelaInformacao extends StatefulWidget {
+  @override
+  _TelaInformacaoState createState() => _TelaInformacaoState();
+}
+
+class _TelaInformacaoState extends State<TelaInformacao> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: SingleChildScrollView(
+        child: Stack(
+        children: [
+          Container(
+            color: cor_base,
+            height: MediaQuery.of(context).size.width/2.5,
+          ),
+
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Informações', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30, color: Colors.white),),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage('https://f.i.uol.com.br/fotografia/2019/07/31/15645726645d417bf8a4451_1564572664_1x1_md.jpg'),
+                    )
+                  ],
+                ),
+
+                Center(
+                  child: Container(                   
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.width/30),               
+                    height: MediaQuery.of(context).size.width/2.5,
+                    width: MediaQuery.of(context).size.width/2.5,
+                    decoration: BoxDecoration(
+                      color: cor_base, 
+                      shape: BoxShape.circle                      
+                    ),
+
+
+                    child: Container( 
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(5),  
+                    decoration: BoxDecoration(
+                      color: Colors.white, 
+                      shape: BoxShape.circle                      
+                    ),
+                    child: Image.asset('assets/ifpi.png',),
+
+
+                    
+
+                  ),
+
+                  
+
+
+
+                    
+
+                  ),
+                ), 
+                SizedBox(height: 50,),
+
+                Text('Este projeto foi desenvolvido pelos alunos do IFPI com o intuído de ajudar a população de Correte e do Brasil, com orientações sobre prevenção ao combate a COVID 19. ', style: TextStyle(color: cor_base, fontSize: 20),),
+                
+                SizedBox(height: 80,),
+                CustomButton(
+                  color: cor_base,
+                  title: Text('Apoie essa idéia!', style: TextStyle(color: Colors.white, fontSize: 15),),
+                )
+
+
+
+              ],
+          ),
+            ),
+          )  
+        
+
+        ],
+      ),
+      )
+
+
+      
+    );
+  }
+}

@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
             );
           } else {
             print("nao conectado com banco");
-             return Center(child: Text("Nao conetou ao banco"),);
+             return Center(child: Text("Nao conectou ao banco"),);
           }
 
         },

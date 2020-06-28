@@ -28,7 +28,7 @@ void addMarcacao(){
           return GoogleMap(
             initialCameraPosition: CameraPosition(
                 target: LatLng(snapshot.data.latitude, snapshot.data.longitude),
-                zoom: 13.0),
+                zoom: 15.0),
             mapType: MapType.normal,
             compassEnabled: true,
             buildingsEnabled: true,
@@ -43,16 +43,34 @@ void addMarcacao(){
 
             markers: Set.from(
               [
-                Marker(
+                /* Marker(
                   infoWindow: InfoWindow(
                     title: "id: ",
                     snippet: "Latitude - Longitude"
                   ),
                   markerId: MarkerId("1"),
                   position: LatLng(snapshot.data.latitude, snapshot.data.longitude)
-                )
+                ) */
               ]
             ),
+
+
+            circles: {
+              Circle(
+                circleId: CircleId('x'), 
+                center: LatLng(snapshot.data.latitude, snapshot.data.longitude),
+                radius: 280,
+                fillColor: Colors.redAccent.withOpacity(0.5),
+                strokeColor: Colors.redAccent.withOpacity(0.5),
+                strokeWidth: 0, 
+              ),
+
+            
+
+            },
+
+
+
           );
         } else {
           return Center(

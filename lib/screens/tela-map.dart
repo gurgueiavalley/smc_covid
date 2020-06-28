@@ -19,11 +19,19 @@ class _TelaMapaState extends State<TelaMapa> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
+        children: [         
+
+          SafeArea(child: MapCustom(),)
+,
           Container(
             color: cor_base,
             height: MediaQuery.of(context).size.width / 2.5,
           ),
+
+          
+
+
+
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -112,9 +120,7 @@ class _TelaMapaState extends State<TelaMapa> {
               ),
             ),
           ),
-          SafeArea(
-            child: Padding(padding: EdgeInsets.only(top: 212), child: MapCustom(),) 
-          ),
+         
         ],
       ),
     );

@@ -32,8 +32,11 @@ class _Tela_HomeState extends State<Tela_Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Olá,', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30, color: Colors.white),),
-                        CircleAvatar(
+                        Text('Olá, ', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30, color: Colors.white),),
+                        Text(googleSignIn.currentUser.displayName, style: TextStyle(fontSize: 30, color: Colors.white),),
+                        Expanded(child: Container()),
+
+                        CircleAvatar(                          
                           backgroundImage: NetworkImage(imageUrl),
                         )
                       ],

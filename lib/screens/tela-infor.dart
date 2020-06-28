@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smccovid/components/custom-botton.dart';
 import 'package:smccovid/constants/constants.dart';
+import 'package:smccovid/screens/sign_in.dart';
 
 class TelaInformacao extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _TelaInformacaoState extends State<TelaInformacao> {
                   children: [
                     Text('Informações', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30, color: Colors.white),),
                     CircleAvatar(
-                      backgroundImage: NetworkImage('https://f.i.uol.com.br/fotografia/2019/07/31/15645726645d417bf8a4451_1564572664_1x1_md.jpg'),
+                      backgroundImage: NetworkImage(imageUrl),
                     )
                   ],
                 ),

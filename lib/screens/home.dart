@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:persistent_bottom_nav_bar/models/persisten-bottom-nav-item.widget.dart';
 import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-styles.widget.dart';
-import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar.widget.dart';
 import 'package:persistent_bottom_nav_bar/models/persistent-nav-bar-scaffold.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.widget.dart';
@@ -50,8 +48,7 @@ class _HomeState extends State<Home> {
         Tela_Home(),        
         Tela_Central(),
         TelaMapa(), 
-        TelaInformacao()
-       
+        TelaInformacao()     
         ];
     }
 

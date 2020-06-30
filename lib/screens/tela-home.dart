@@ -10,6 +10,18 @@ class Tela_Home extends StatefulWidget {
 }
 
 class _Tela_HomeState extends State<Tela_Home> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('Sua localização');
+    print(dados_localizacao);
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -10,6 +10,8 @@ import 'package:smccovid/screens/tela-home.dart';
 import 'package:smccovid/screens/tela-infor.dart';
 import 'package:smccovid/screens/tela-map.dart';
 
+import '../constants/constants.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -82,6 +84,8 @@ class _HomeState extends State<Home> {
             activeColor: cor_base,
             inactiveColor: CupertinoColors.systemGrey,
         ),
+
+        
        
        
 

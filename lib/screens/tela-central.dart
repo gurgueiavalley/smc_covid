@@ -91,6 +91,12 @@ class _Tela_CentralState extends State<Tela_Central> {
 
                   },
                 ), 
+                BottonTelefone(
+                  titulo: 'NOTÍCIAS',
+                  onPressed: (){
+
+                  },
+                ), 
 
                 
 

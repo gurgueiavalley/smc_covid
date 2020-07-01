@@ -8,6 +8,8 @@ import 'package:smccovid/screens/splash.dart';
 import 'package:smccovid/screens/tela-login.dart';
 import 'package:smccovid/screens/tela_login.dart';
 
+import 'screens/tela-home.dart';
+
 
 
 

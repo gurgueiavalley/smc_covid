@@ -3,6 +3,7 @@ import 'package:smccovid/components/botton-home.dart';
 import 'package:smccovid/components/sintomas.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
+import 'package:smccovid/screens/tela-estatistica.dart';
 
 class Tela_Home extends StatefulWidget {
   @override
@@ -209,7 +210,7 @@ class _Tela_HomeState extends State<Tela_Home> {
                 icon:  Icon(Icons.multiline_chart, size: 40,color: Colors.white,),
                 titulo: Text('Estastística', style: TextStyle(fontSize: 30, color: Colors.white),),
                 onPressed: (){
-                  
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TelaEstatistica()));
                 },
               ),
 

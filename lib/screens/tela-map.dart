@@ -5,6 +5,8 @@ import 'package:smccovid/components/custom-map.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
 
+import '../constants/constants.dart';
+
 class TelaMapa extends StatefulWidget {
   @override
   _TelaMapaState createState() => _TelaMapaState();
@@ -73,7 +75,7 @@ class _TelaMapaState extends State<TelaMapa> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Formosa do Rio Preto',
+                                '${dados_localizacao['subAdministrativeArea']}, ${dados_localizacao['administrativeArea']}, ${dados_localizacao['country']}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w800,
                                     fontSize: 18,

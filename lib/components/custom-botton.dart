@@ -6,7 +6,8 @@ class CustomButton extends StatefulWidget {
   final icon;
   final onPressed;
   final color;
-  const CustomButton( {Key key, this.title, this.icon, this.onPressed, this.color}): super(key: key);
+  final cor_indicador;
+  const CustomButton( {Key key, this.title, this.icon, this.onPressed, this.color, this.cor_indicador}): super(key: key);
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
@@ -95,7 +96,9 @@ class _CustomButtonState extends State<CustomButton> {
               Expanded(
                 child: Container(
                   alignment: Alignment.center,
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(widget.cor_indicador),
+                  ),
                 ),
               ),
               

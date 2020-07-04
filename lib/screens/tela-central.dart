@@ -12,108 +12,78 @@ class _Tela_CentralState extends State<Tela_Central> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: SingleChildScrollView(
-        child: Stack(
+        body: SingleChildScrollView(
+      child: Stack(
         children: [
           Container(
             color: cor_base,
-            height: MediaQuery.of(context).size.width/2.5,
+            height: MediaQuery.of(context).size.width / 2.5,
           ),
-
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Central', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30, color: Colors.white),),
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(imageUrl),
-                    )
-                  ],
-                ),
-
-                Center(
-                  child: Container(                   
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.width/30),               
-                    height: MediaQuery.of(context).size.width/2.5,
-                    width: MediaQuery.of(context).size.width/2.5,
-                    decoration: BoxDecoration(
-                      color: cor_base, 
-                      shape: BoxShape.circle                      
-                    ),
-
-
-                    child: Container( 
-                    padding: EdgeInsets.all(20),
-                    margin: EdgeInsets.all(5),  
-                    decoration: BoxDecoration(
-                      color: Colors.white, 
-                      shape: BoxShape.circle                      
-                    ),
-                    child: Image.asset('assets/12.png',),
-
-
-                    
-
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Central',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 30,
+                            color: Colors.white),
+                      ),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(imageUrl),
+                      )
+                    ],
                   ),
-
-                  
-
-
-
-                    
-
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.width / 30),
+                      height: MediaQuery.of(context).size.width / 2.5,
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      decoration: BoxDecoration(
+                          color: cor_base, shape: BoxShape.circle),
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: Image.asset(
+                          'assets/12.png',
+                        ),
+                      ),
+                    ),
                   ),
-                ), 
-                SizedBox(height: 50,),
-
-                BottonTelefone(
-                  titulo: 'SECRETARIA DE SAUDE',
-                  onPressed: (){
-                    
-                  },
-                ), 
-                BottonTelefone(
-                  titulo: 'HOSPITAL',
-                  onPressed: (){
-
-                  },
-                ), 
-                BottonTelefone(
-                  titulo: 'PRONTO SOCORRO',
-                  onPressed: (){
-
-                  },
-                ), 
-                BottonTelefone(
-                  titulo: 'NOTÍCIAS',
-                  onPressed: (){
-
-                  },
-                ), 
-
-                
-
-
-
-              ],
-          ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  BottonTelefone(
+                    titulo: 'SECRETARIA DE SAUDE',
+                    onPressed: () {},
+                  ),
+                  BottonTelefone(
+                    titulo: 'HOSPITAL',
+                    onPressed: () {},
+                  ),
+                  BottonTelefone(
+                    titulo: 'PRONTO SOCORRO',
+                    onPressed: () {},
+                  ),
+                  BottonTelefone(
+                    titulo: 'NOTÍCIAS',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
-          )  
-        
-
+          )
         ],
       ),
-      )
-
-
-      
-    );
+    ));
   }
 }

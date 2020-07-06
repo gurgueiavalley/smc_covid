@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
-
 class CustomButton extends StatefulWidget {
   final title;
   final icon;
   final onPressed;
   final color;
   final cor_indicador;
-  const CustomButton( {Key key, this.title, this.icon, this.onPressed, this.color, this.cor_indicador}): super(key: key);
+  const CustomButton(
+      {Key key,
+      this.title,
+      this.icon,
+      this.onPressed,
+      this.color,
+      this.cor_indicador})
+      : super(key: key);
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
 }
 
 class _CustomButtonState extends State<CustomButton> {
-  bool status=true;
+  bool status = true;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,6 @@ class _CustomButtonState extends State<CustomButton> {
         visible: status,
         child: _botao(context),
         replacement: _carregando(context),
-
       ),
     );
   }
@@ -34,19 +39,19 @@ class _CustomButtonState extends State<CustomButton> {
       duration: Duration(milliseconds: 400),
       width: MediaQuery.of(context).size.width * 0.87,
       height: 60,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: Colors.black38,
-          blurRadius: 5,
-          offset: Offset(-1, 5)
-        )
-      ], color: widget.color==null?Colors.white:widget.color, borderRadius: BorderRadius.circular(50)),
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black38, blurRadius: 5, offset: Offset(-1, 5))
+          ],
+          color: widget.color == null ? Colors.white : widget.color,
+          borderRadius: BorderRadius.circular(50)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
         child: MaterialButton(
           onPressed: () {
             setState(() {
-              status=!status;
+              status = !status;
               widget.onPressed();
             });
           },
@@ -59,11 +64,10 @@ class _CustomButtonState extends State<CustomButton> {
                 ),
               ),
               Container(
-                  width: 150,
-                  alignment: Alignment.center,
-                  child: widget.title,
-                ),
-              
+                width: 150,
+                alignment: Alignment.center,
+                child: widget.title,
+              ),
               Expanded(
                 child: Container(),
               ),
@@ -74,45 +78,40 @@ class _CustomButtonState extends State<CustomButton> {
     );
   }
 
-
-   _carregando(var context) {
+  _carregando(var context) {
     return AnimatedContainer(
       curve: Curves.linear,
       duration: Duration(milliseconds: 400),
       width: 70,
       height: 60,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          blurRadius: 7,
-        )
-      ], color: widget.color==null?Colors.white:widget.color, borderRadius: BorderRadius.circular(50)),
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 7,
+            )
+          ],
+          color: widget.color == null ? Colors.white : widget.color,
+          borderRadius: BorderRadius.circular(50)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
         child: MaterialButton(
           onPressed: null,
           child: Row(
-            children: [              
+            children: [
               Expanded(
                 child: Container(
                   alignment: Alignment.center,
                   child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(widget.cor_indicador),
+                    valueColor:
+                        new AlwaysStoppedAnimation<Color>(widget.cor_indicador),
                   ),
                 ),
               ),
-              
             ],
           ),
         ),
       ),
     );
   }
-
-
-
 }
-
-
-
-

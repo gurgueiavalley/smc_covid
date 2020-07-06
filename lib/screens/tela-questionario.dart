@@ -134,10 +134,18 @@ class _QuestionarioState extends State<Questionario> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        print('aqui');
+                        /*
+                        passando as respostas para do usuario para o vetor lsb
+                        */
+                        for (int i = 0; i < perguntasTeste.length; i++)
+                          lsb[i] = perguntasTeste[i]['valor'];
+
+                        print('lsb inicial');
                         print(lsb);
-                        print('aqui');
+                        print('dicionario perguntas');
                         print(perguntasTeste);
+                        print('lsb final');
+                        print(lsb);
                       },
                     ),
                     SizedBox(

@@ -60,24 +60,31 @@ class _Tela_CentralState extends State<Tela_Central> {
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
                   BottonTelefone(
                     titulo: 'SECRETARIA DE SAUDE',
                     onPressed: () {},
+                    icon: Icons.phone,
                   ),
                   BottonTelefone(
                     titulo: 'HOSPITAL',
                     onPressed: () {},
+                    icon: Icons.phone,
                   ),
                   BottonTelefone(
                     titulo: 'PRONTO SOCORRO',
                     onPressed: () {},
+                    icon: Icons.phone,
                   ),
                   BottonTelefone(
                     titulo: 'NOTÍCIAS',
                     onPressed: () {},
+                    icon: Icons.info,
                   ),
+                  SizedBox(
+                    height: 30,
+                  )
                 ],
               ),
             ),

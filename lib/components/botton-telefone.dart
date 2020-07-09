@@ -6,7 +6,8 @@ import 'package:smccovid/constants/constants.dart';
 class BottonTelefone extends StatefulWidget {
   final titulo;
   final onPressed;
-  const BottonTelefone({Key key, this.titulo, this.onPressed, IconData nome})
+  final icon;
+  const BottonTelefone({Key key, this.titulo, this.onPressed, this.icon})
       : super(key: key);
 
   @override
@@ -59,7 +60,7 @@ class _BottonTelefoneState extends State<BottonTelefone> {
                         width: 3,
                       )),
                   child: Icon(
-                    Icons.phone,
+                    widget.icon,
                     size: 50,
                     color: cor_base,
                   ),

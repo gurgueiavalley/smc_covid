@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smccovid/components/item_pergunta.dart';
 import 'package:smccovid/models/pergunta.dart';
+import 'package:smccovid/models/resposta.dart';
+import 'package:smccovid/models/usuario.dart';
+import 'package:smccovid/screens/home.dart';
+import 'package:smccovid/screens/sign_in.dart';
 import '../components/custom-botton.dart';
-import '../constants/constants.dart';
 import '../constants/constants.dart';
 
 class Questionario extends StatefulWidget {
@@ -39,7 +42,7 @@ var perguntasTeste = [
   },
   {
     'pergunta': 'Possui problemas como, coração, obesidade, etc. ',
-    'valor': true
+    'valor': false
   },
 ];
 var lsb = [];
@@ -51,11 +54,12 @@ class _QuestionarioState extends State<Questionario> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('Cheguei');
     int taml = perguntasTeste.length;
     for (var i = 0; i < taml; i++) {
       lsb.add(false);
     }
-    print(lsb);
+    //print(lsb);
   }
 
   @override
@@ -84,6 +88,10 @@ class _QuestionarioState extends State<Questionario> {
                               fontSize: 30,
                               color: Colors.white),
                         ),
+                        Expanded(child: Container()),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(imageUrl),
+                        )
                       ],
                     ),
                     Center(
@@ -133,19 +141,58 @@ class _QuestionarioState extends State<Questionario> {
                         'Concluir',
                         style: TextStyle(color: Colors.white),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         /*
                         passando as respostas para do usuario para o vetor lsb
                         */
-                        for (int i = 0; i < perguntasTeste.length; i++)
+                        int cont = 0;
+                        for (int i = 0; i < perguntasTeste.length; i++) {
                           lsb[i] = perguntasTeste[i]['valor'];
+                          if (lsb[i] == true) cont++;
+                        }
 
-                        print('lsb inicial');
-                        print(lsb);
-                        print('dicionario perguntas');
-                        print(perguntasTeste);
-                        print('lsb final');
-                        print(lsb);
+                        //instanciando a classe respostas
+                        Resposta resposta = Resposta();
+                        int totaltrue = perguntasTeste.length - cont;
+                        if (totaltrue >= 7) {
+                          resposta.respostas = 'verde';
+                        } else if (totaltrue >= 2 && totaltrue <= 6) {
+                          resposta.respostas = 'amarelo';
+                        } else if (totaltrue > 0 && totaltrue <= 1) {
+                          resposta.respostas = 'vermelho';
+                        }
+                        //pegando a data e o idgoogle do usuario
+                        resposta.data = DateTime.now();
+                        resposta.idUsuario = idUsuario;
+                        //print("Aqui:");
+                        //print(resposta.verificaResposta(idUsuario));
+                        var dados = await hasuraConnect
+                            .query(Resposta().verificaResposta(idUsuario));
+                        print(dados['data']['respostas'].length);
+                        //suponhamos que essa seja a data do bando
+                        var dataBanco = dados['data']['resposta']['data'];
+                        //data de hoje
+                        var today = new DateTime.now();
+                        //data reduzida de hoje menos -7
+                        var dataReduzida = today.add(new Duration(days: -7));
+                        //verificando se já existe resposta do usuario
+                        if ((dados['data']['respostas'].length == 1)) {
+                          if (dataBanco <= dataReduzida)
+                            resposta.editar(resposta, resposta.idUsuario);
+                          else {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
+                          }
+                        } else {
+                          resposta.cadastrar(resposta);
+                          Navigator.pop(context);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home()));
+                        }
+                        //print(idusuario.runtimeType);
                       },
                     ),
                     SizedBox(

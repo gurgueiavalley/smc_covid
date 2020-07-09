@@ -6,6 +6,7 @@ import 'package:smccovid/screens/home.dart';
 import 'package:smccovid/screens/splash.dart';
 import 'package:smccovid/screens/tela-login.dart';
 import 'package:smccovid/screens/tela_login.dart';
+import 'package:smccovid/screens/test.dart';
 
 import 'screens/tela-home.dart';
 import 'screens/tela-questionario.dart';
@@ -15,7 +16,8 @@ main(List<String> args) {
       SystemUiOverlayStyle(systemNavigationBarColor: cor_base));
 
   runApp(MaterialApp(
-    home: Questionario(),
+    //home: Tela_Splash(),
+    home: Tela_Login(),
     debugShowCheckedModeBanner: false,
   ));
 }

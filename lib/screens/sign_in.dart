@@ -7,10 +7,12 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 String name;
 String email;
 String imageUrl;
+var idUsuario;
 
 Future<String> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+  final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
 
   final AuthCredential credential = GoogleAuthProvider.getCredential(
     accessToken: googleSignInAuthentication.accessToken,
@@ -20,7 +22,7 @@ Future<String> signInWithGoogle() async {
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
 
-  // Verifica se o email e nome estao nulos 
+  // Verifica se o email e nome estao nulos
   assert(user.email != null);
   assert(user.displayName != null);
   assert(user.photoUrl != null);
@@ -28,6 +30,7 @@ Future<String> signInWithGoogle() async {
   name = user.displayName;
   email = user.email;
   imageUrl = user.photoUrl;
+  idUsuario = user.uid;
 
   // Pega a primeira parte do nome, i.e., First Name
   if (name.contains(" ")) {

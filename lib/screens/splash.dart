@@ -22,6 +22,7 @@ class _Tela_SplashState extends State<Tela_Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cor_base,
+      //carregando dados de localização do usuario
       body: FutureBuilder<LocationData>(
         future: Location().getLocation(),
         builder: (_, d) {
@@ -33,7 +34,6 @@ class _Tela_SplashState extends State<Tela_Splash> {
               builder: (_, d) {
                 if (d.hasData) {
                   dados_localizacao = d.data.elementAt(0).toJson();
-
                   return Tela_Login();
                 } else {
                   return Center(

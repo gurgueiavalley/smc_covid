@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:smccovid/constants/constants.dart';
 
 class MapCustom extends StatefulWidget {
   @override
@@ -50,7 +51,12 @@ Completer<GoogleMapController> _controller = Completer();
                   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
                   
                   markerId: MarkerId("1"),
-                  position: LatLng(snapshot.data.latitude, snapshot.data.longitude)
+                  position: LatLng(snapshot.data.latitude, snapshot.data.longitude),
+                  infoWindow: InfoWindow(
+                   title: '${dados_localizacao['subAdministrativeArea']}',
+                   snippet: '${dados_localizacao['thoroughfare']}, ${dados_localizacao['subThoroughfare']}',
+
+                  ),
                 ),             
                 
               ]

@@ -1,38 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:smccovid/constants/constants.dart';
 import 'dart:convert';
-
+import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:smccovid/components/dados_nacionais.dart';
 import 'package:smccovid/constants/constants.dart';
 
-class Nacional extends StatefulWidget {
-  @override
-  _NacionalState createState() => _NacionalState();
+class Dados_locais extends StatefulWidget {
 
-  novocontainer(MaterialColor red, Text text, Text text2) {}
+  @override
+  _Dados_locaisState createState() => _Dados_locaisState();
 }
 
-class _NacionalState extends State<Nacional> {
-  String pais;
-  String casos;
-  String mortes;
-  String recuperados;
-
-  Future<Map> apiCovid() async {
-    http.Response respostas = await http
-        .get('https://covid19-brazil-api.now.sh/api/report/v1/brazil');
-    return json.decode(respostas.body);
-  }
-
+class _Dados_locaisState extends State<Dados_locais> {
   @override
-  // ignore: missing_return
+  
+  
+  String local;
+  String cidade;
+  String ccc = 'aaaa';
+  
+  Future<Map> apiCovid() async {
+    http.Response resposta = await http
+        .get('https://brasil.io/api/dataset/covid19/caso/data/?city=$local');
+    return json.decode(resposta.body);
+  }
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: FutureBuilder<Map>(
-            future: apiCovid(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.none ||
-                  snapshot.connectionState == ConnectionState.waiting) {
-                return Column(
+      child: FutureBuilder<LocationData>(
+        future: Location().getLocation(),
+        builder: (context, snapshot) {
+        if (snapshot.hasData &&
+            snapshot.data.latitude != null &&
+            snapshot.data.longitude != null) {
+            local = dados_localizacao['subAdministrativeArea'];
+            print(local);
+
+        return FutureBuilder(
+        future: apiCovid(),
+        builder: (context, snapshot){
+          if(snapshot.connectionState == ConnectionState.none
+          || snapshot.connectionState == ConnectionState.waiting){
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(padding: EdgeInsets.fromLTRB(300, 50, 100, 0)),
@@ -42,18 +55,22 @@ class _NacionalState extends State<Nacional> {
                     ),
                     CircularProgressIndicator()
                   ],
-                );
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text("Erro ao Carregar!", style: TextStyle(color: cor_base, fontSize: 30),),
-                );
-              
-              } else {
-                pais = snapshot.data['data']['country'].toString();
-                casos = snapshot.data['data']['confirmed'].toString();
-                mortes = snapshot.data['data']['deaths'].toString();
-                recuperados = snapshot.data['data']['recovered'].toString();
-                return Center(
+                )
+              ],
+            );
+          }else if(snapshot.hasError){
+            return Center(
+              child: Text("Erro ao Carregar"),
+            );
+          }
+          else{
+         
+            cidade = snapshot.data['results'][0]['city'].toString();
+            String confirmados = snapshot.data['results'][0]['confirmed'].toString();
+            String mortes = snapshot.data['results'][0]['deaths'].toString();
+            String populacao = snapshot.data['results'][0]['estimated_population_2019'].toString();
+  
+             return Center(
                     child: Column(
                   children: [
                     Container(
@@ -61,7 +78,7 @@ class _NacionalState extends State<Nacional> {
                       color: cor_base,
                       child: Center(
                         child: Text(
-                          'Nacional',
+                          'Local',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -79,21 +96,45 @@ class _NacionalState extends State<Nacional> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            novocontainer(
+                             novocontainer(
                                 Colors.blue,
                                 Text(
-                                  "País ",
+                                  "Cidade",
                                   style: TextStyle(
                                       fontSize: 25,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 Text(
-                                  pais,
+                                  cidade,
+                                  style: TextStyle(
+                                      fontSize: 
+                                      cidade.length <= 10 ?
+                                      22: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.blue),
+                                )),
+                            Divider(
+                              color: Colors.transparent,
+                              height: 10,
+                              indent: 10,
+                              thickness: 5,
+                            ),
+                            novocontainer(
+                                Colors.yellow[800],
+                                Text(
+                                  "População",
+                                  style: TextStyle(
+                                      fontSize: 23,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Text(
+                                  populacao,
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.blue),
+                                      color: Colors.yellow[800]),
                                 )),
                             Divider(
                               color: Colors.transparent,
@@ -111,33 +152,11 @@ class _NacionalState extends State<Nacional> {
                                       fontWeight: FontWeight.w700),
                                 ),
                                 Text(
-                                  casos,
+                                  confirmados,
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.red),
-                                )),
-                            Divider(
-                              color: Colors.transparent,
-                              height: 10,
-                              indent: 10,
-                              thickness: 5,
-                            ),
-                            novocontainer(
-                                Colors.green,
-                                Text(
-                                  "Curados ",
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                Text(
-                                  recuperados,
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.green),
                                 )),
                             Divider(
                               color: Colors.transparent,
@@ -168,10 +187,24 @@ class _NacionalState extends State<Nacional> {
                     ),
                   ],
                 ));
-              }
-            }));
-  }
 
+
+          }
+        }
+        );
+        
+            }else{
+              return Center(
+               child: CircularProgressIndicator(),
+              );
+            }
+            }
+        
+        )
+      
+      
+    );
+  }
   Widget novocontainer(Color cor, Text texto1, texto2) {
     return Padding(
         padding: EdgeInsets.fromLTRB(2, 5, 2, 0),
@@ -196,8 +229,9 @@ class _NacionalState extends State<Nacional> {
               child: Center(
                 child: texto2,
               ),
-            ),
-          ],
-        ));
-  }
-}
+            )
+            ]
+          )
+        );
+      }
+    }

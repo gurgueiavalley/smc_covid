@@ -5,9 +5,8 @@ import 'package:smccovid/components/custom-botton.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/models/resposta.dart';
 import 'package:smccovid/screens/home.dart';
-import 'package:smccovid/screens/tela-map.dart';
 import 'package:smccovid/screens/tela-questionario.dart';
-import 'package:smccovid/screens/test.dart';
+import 'package:smccovid/screens/verificar_questionario.dart';
 import 'sign_in.dart';
 
 class Tela_Login extends StatefulWidget {
@@ -58,31 +57,13 @@ class _Tela_LoginState extends State<Tela_Login> {
                 //pegando dados da tabela resposta no banco
                 var dados = await hasuraConnect
                     .query(Resposta().verificaResposta(idUsuario));
-
-                /*Caso o usuario ja tenha feito o questionario e ja esta apto para 
-                fazer-lo novamente*/
-                if ((dados['data']['respostas'].length == 1)) {
-                  var databanco = dados['data']['respostas'][0]['data'];
-                  //retirando o '-' da data do banco
-                  String dataBancoString = databanco.replaceAll('-', '');
-                  //Data de String para int
-                  int dataBancoInt = int.parse(dataBancoString);
-                  print(dataBancoInt);
-                  //data de hoje
-                  DateTime today = new DateTime.now();
-                  //data reduzida de hoje menos -7
-                  DateTime dataReduzida = today.add(new Duration(days: -7));
-                  String dataReduzidaString = dataReduzida.toString();
-
-                  var newFormat = DateFormat("yyyy-MM-dd");
-                  String updatedDt = newFormat.format(dataReduzida);
-
-                  dataReduzidaString = updatedDt.replaceAll('-', '');
-                  int dataReduzidaInt = int.parse(dataReduzidaString);
-                  print(dataReduzidaInt);
-                  print(dataReduzidaInt.runtimeType);
-                  if (dataBancoInt <= dataReduzidaInt) {
-                    print("aqui 1");
+                VerificarQuestionario vrq = VerificarQuestionario();
+                var situacao = await vrq.verficarRespostaUsuario(idUsuario);
+                if (situacao) {
+                  var situacaoQuestionatio =
+                      await vrq.verificaDataRespostaUsuario(idUsuario);
+                  if (situacaoQuestionatio) {
+                    print('sim 1');
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
@@ -91,7 +72,7 @@ class _Tela_LoginState extends State<Tela_Login> {
                       ),
                     );
                   } else {
-                    print("aqui 2");
+                    print('sim 2');
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
@@ -101,7 +82,7 @@ class _Tela_LoginState extends State<Tela_Login> {
                     );
                   }
                 } else {
-                  print("aqui 3");
+                  print('sim 3');
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {

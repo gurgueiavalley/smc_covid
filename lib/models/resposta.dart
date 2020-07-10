@@ -1,7 +1,5 @@
 import 'package:smccovid/constants/constants.dart';
 
-import 'usuario.dart';
-
 class Resposta {
   int id;
   String idUsuario;

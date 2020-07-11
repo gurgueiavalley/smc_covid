@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smccovid/components/custom-botton.dart';
+import 'package:smccovid/components/dados_locais.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
 import 'package:smccovid/components/dados_nacionais.dart';
@@ -15,9 +16,11 @@ class TelaEstatistica extends StatefulWidget {
 
 class _TelaEstatisticaState extends State<TelaEstatistica> {
   int _current = 0;
+  CarouselController buttonCarouselController = CarouselController();
   List imgList = [
     Nacional(),
     Regional(),
+    Dados_locais(),
   ];
 
   List<T> map<T>(List list, Function handler) {
@@ -82,13 +85,17 @@ class _TelaEstatisticaState extends State<TelaEstatistica> {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(top: 250, left: 0, right: 0),
+           Container(
+            padding: EdgeInsets.only(top: 270, left: 0, right: 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
                 CarouselSlider(
+                  carouselController: buttonCarouselController,
                   items: imgList.map((imgUrl) {
                     return Builder(
                       builder: (BuildContext context) {
@@ -108,6 +115,12 @@ class _TelaEstatisticaState extends State<TelaEstatistica> {
                     reverse: false,
                     enableInfiniteScroll: false,
                     autoPlayInterval: Duration(seconds: 2),
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                      });
+                    },
+
                     // autoPlayAnimationDuration: Duration(milliseconds: 2000),
                     //pauseAutoPlayOnTouch: Duration(seconds: 10),
                     scrollDirection: Axis.horizontal,
@@ -123,7 +136,7 @@ class _TelaEstatisticaState extends State<TelaEstatistica> {
                           EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: _current == index ? Colors.grey : cor_base,
+                        color: _current == index ? cor_base : Colors.grey,
                       ),
                     );
                   }),

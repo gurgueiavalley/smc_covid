@@ -19,10 +19,26 @@ class _RegionalState extends State<Regional> {
     'BA',
     'CE',
     'DF',
-    'GO',
     'ES',
-    'SP',
+    'GO',
+    'MA',
+    'MT',
+    'MS',
+    'MG',
+    'PA',
+    'PB',
+    'PR',
+    'PE',
+    'PI',
     'RJ',
+    'RN',
+    'RS',
+    'RO',
+    'RR',
+    'SC',
+    'SP',
+    'SE',
+    'TO'
   ];
   var _itemSelecionado = 'BA';
 
@@ -62,27 +78,60 @@ class _RegionalState extends State<Regional> {
               mortes = snapshot.data['deaths'].toString();
 
               return Center(
-                  child: Container(
-                      padding: EdgeInsets.all(30),
+                  child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    color: cor_base,
+                    child: Center(
+                      child: Text(
+                        'Regional',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                  Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
                       decoration: BoxDecoration(
                         border: Border.all(width: 3, color: cor_base),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(0),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: criaDropDownButton(),
-                          ),
-                          novocontainer(
-                            Colors.blue,
-                            Text(
-                              "Estado: " + estado,
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.w400),
+                          Center(
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 3,
+                                    color: cor_base,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: criaDropDownButton(),
                             ),
                           ),
+                          novocontainer(
+                              Colors.blue,
+                              Text(
+                                "Estado ",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                estado,
+                                style: TextStyle(
+                                    fontSize: estado.length <= 14                                             
+                                        ? 25
+                                        : 17,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.blue),
+                              )),
                           Divider(
                             color: Colors.transparent,
                             height: 10,
@@ -90,28 +139,47 @@ class _RegionalState extends State<Regional> {
                             thickness: 5,
                           ),
                           novocontainer(
-                            Colors.red,
-                            Text(
-                              "Casos: " + casos,
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.w400),
-                            ),
-                          ),
+                              Colors.red,
+                              Text(
+                                "Casos ",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                casos,
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.red),
+                              )),
                           Divider(
                             color: Colors.transparent,
                             height: 10,
                             thickness: 5,
                           ),
                           novocontainer(
-                            Colors.black,
-                            Text(
-                              "Mortes: " + mortes,
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.w400),
-                            ),
-                          ),
+                              Colors.black,
+                              Text(
+                                "Mortes ",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                mortes,
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              )),
                         ],
-                      )));
+                      ))
+                ],
+              )
+              );
             }
           }),
     );
@@ -119,42 +187,39 @@ class _RegionalState extends State<Regional> {
 
   criaDropDownButton() {
     return Container(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            Text(
-              "Selecione o Estado",
-              style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.w500, color: cor_base),
-            ),
-            Center(
-              child: DropdownButton<String>(
-                  focusColor: cor_base,
-                  dropdownColor: cor_base,
-                  underline: Container(
-                    decoration: const BoxDecoration(
-                        border:
-                            Border(bottom: BorderSide(color: Colors.black))),
+      child: Column(
+        children: <Widget>[
+          //Text("Selecione o Estado", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: cor_base),),
+
+          DropdownButton<String>(
+              focusColor: cor_base,
+              dropdownColor: Colors.deepPurple[50],
+              icon: Icon(
+                Icons.arrow_drop_down,
+                size: 45,
+                color: cor_base,
+              ),
+              underline: Container(),
+              items: _estados.map((String dropDownStringItem) {
+                return DropdownMenuItem<String>(
+                  value: dropDownStringItem,
+                  child: Text(
+                    dropDownStringItem,
+                    style: TextStyle(
+                        color: cor_base,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20),
                   ),
-                  items: _estados.map((String dropDownStringItem) {
-                    return DropdownMenuItem<String>(
-                      value: dropDownStringItem,
-                      child: Text(
-                        dropDownStringItem,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (String novoItemSelecionado) {
-                    _dropDownItemSelected(novoItemSelecionado);
-                    setState(() {
-                      this._itemSelecionado = novoItemSelecionado;
-                    });
-                  },
-                  value: _itemSelecionado),
-            ),
-          ],
-        ),
+                );
+              }).toList(),
+              onChanged: (String novoItemSelecionado) {
+                _dropDownItemSelected(novoItemSelecionado);
+                setState(() {
+                  this._itemSelecionado = novoItemSelecionado;
+                });
+              },
+              value: _itemSelecionado),
+        ],
       ),
     );
   }
@@ -165,17 +230,29 @@ class _RegionalState extends State<Regional> {
     });
   }
 
-  Widget novocontainer(Color cor, Text texto) {
+  Widget novocontainer(Color cor, Text texto1, texto2) {
     return Padding(
       padding: EdgeInsets.fromLTRB(2, 10, 2, 0),
-      child: Container(
-        width: 240,
-        padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
-        decoration: BoxDecoration(
-          border: Border.all(width: 3, color: cor),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: texto,
+      child: Row(
+        children: [
+          Container(
+            width: 120,
+            height: 50,
+            padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
+            color: cor,
+            child: texto1,
+          ),
+          Container(
+            width: 176,
+            height: 50,
+            padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
+            decoration: BoxDecoration(
+              border: Border.all(width: 3, color: cor),
+              borderRadius: BorderRadius.circular(0),
+            ),
+            child: texto2,
+          ),
+        ],
       ),
     );
   }

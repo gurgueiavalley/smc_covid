@@ -16,8 +16,8 @@ main(List<String> args) {
       SystemUiOverlayStyle(systemNavigationBarColor: cor_base));
 
   runApp(MaterialApp(
-    //home: Tela_Splash(),
-    home: Tela_Login(),
+    home: Tela_Splash(),
+   // home: Tela_Login(),
     debugShowCheckedModeBanner: false,
   ));
 }

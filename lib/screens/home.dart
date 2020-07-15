@@ -9,6 +9,7 @@ import 'package:smccovid/screens/tela-central.dart';
 import 'package:smccovid/screens/tela-home.dart';
 import 'package:smccovid/screens/tela-infor.dart';
 import 'package:smccovid/screens/tela-map.dart';
+import 'package:smccovid/screens/tela-menu-mapas.dart';
 
 import '../constants/constants.dart';
 
@@ -46,12 +47,7 @@ class _HomeState extends State<Home> {
 
 
   List<Widget> _buildScreens() {
-        return [
-        Tela_Home(),        
-        Tela_Central(),
-        TelaMapa(), 
-        TelaInformacao()     
-        ];
+        return [Tela_Home(), Tela_Central(), MenuMapas(), TelaInformacao()];
     }
 
 

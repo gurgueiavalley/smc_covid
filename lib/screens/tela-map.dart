@@ -57,7 +57,7 @@ class _TelaMapaState extends State<TelaMapa> {
                             color: Colors.white),
                       ),
                       CircleAvatar(
-                       // backgroundImage: NetworkImage(imageUrl)
+                        backgroundImage: NetworkImage(imageUrl)
                       )
                     ],
                   ),

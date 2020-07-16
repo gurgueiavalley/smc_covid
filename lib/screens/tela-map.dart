@@ -71,10 +71,15 @@ class _TelaMapaState extends State<TelaMapa> {
                         boxShadow: [
                           BoxShadow(color: Colors.black45, blurRadius: 10)
                         ]),
-                    child: FutureBuilder(
+                    child: FutureBuilder<dynamic>(
                       future: dadosLocais(),
                       builder: (context, snapshot){
-                      String confirmados = snapshot.data['results'][0]['confirmed'].toString();
+                        if(snapshot.connectionState == ConnectionState.none ||
+                          snapshot.connectionState == ConnectionState.waiting
+                        ){
+                          return Center(child: Text("Carregando informações", style: TextStyle(color: cor_base, fontSize: 20),),);
+                        }else if(snapshot.hasData){
+                           String confirmados =  snapshot.data['results'][0]['confirmed'].toString();
                       String mortes = snapshot.data['results'][0]['deaths'].toString();
                       String populacao = snapshot.data['results'][0]['estimated_population_2019'].toString();
                       return  Padding(
@@ -124,6 +129,12 @@ class _TelaMapaState extends State<TelaMapa> {
                         ],
                       ),
                     );
+                        }
+                        else{
+                         return Center(child: Text("Erro ao obter informações", style: TextStyle(color: cor_base, fontSize: 20),),);
+
+                        }
+                     
                       }
                       //
                       

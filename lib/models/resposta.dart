@@ -14,7 +14,7 @@ class Resposta {
     String query = """
       mutation MyMutation {
         insert_respostas(objects: {
-          id_usuario: "${resposta.idUsuario}", 
+          id_google: "${resposta.idUsuario}", 
           data: "${resposta.data}",
           resposta: "${resposta.respostas}"
         }) {
@@ -30,7 +30,7 @@ class Resposta {
   editar(Resposta resposta, String idUsuario) async {
     String query = """
       mutation MyMutation {
-        update_respostas(where: {id_usuario: {_eq: "$idUsuario" }},
+        update_respostas(where: {id_google: {_eq: "$idUsuario" }},
          _set: {
           data: "${resposta.data}", 
           resposta: "${resposta.respostas}"          
@@ -47,8 +47,8 @@ class Resposta {
   verificaResposta(String idUsuario) {
     String query = """ 
     query MyQuery {
-        respostas(where: {id_usuario: {_eq: "$idUsuario"}}) {
-          id_usuario
+        respostas(where: {id_google: {_eq: "$idUsuario"}}) {
+          id_google
           data
         }
       }

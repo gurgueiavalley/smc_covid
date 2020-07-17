@@ -1,4 +1,3 @@
-
 import 'package:smccovid/constants/constants.dart';
 
 import 'instituicao.dart';
@@ -10,26 +9,34 @@ class Usuario extends Pessoa {
   int idade;
   double latitude;
   double longitude;
-
+  int idInstituicao;
   /* Construtor da classe Usuario  */
-  Usuario({int id, String nome, String email, Instituicao instituicao, String idGoogle, int idade, double latitude, double longitude}) : super(id, nome, email, instituicao);
-  
+  Usuario(
+      {int id,
+      String nome,
+      String email,
+      int idInstituicao,
+      String idGoogle,
+      int idade,
+      double latitude,
+      double longitude})
+      : super(id, nome, email);
+
   /*  Método cadastrar Usuario  */
   cadastrar(Usuario usr) async {
     String query = """
-      mutation MyMutation {
-        insert_usuarios(objects: {
-          nome: "${usr.nome}", 
-          email: "${usr.email}", 
-          id_instituicao: "${usr.instituicao.id}", 
-          id_google: "${usr.idGoogle}", 
-          idade: "${usr.idade}", 
-          latitude: "${usr.latitude}", 
-          longitude: "${usr.longitude}" 
-        }) {
-          affected_rows
-        }
-      }
+     mutation MyMutation {
+      insert_usuarios(objects: {
+        id_google: "${usr.idGoogle}", 
+        id_instituicao: "${usr.idInstituicao}", 
+        idade: ${usr.idade}, 
+        latitude: "${usr.latitude}", 
+        longitude: "${usr.longitude}", 
+        nome: "${usr.nome}"}) {
+    affected_rows
+  }
+}
+
     """;
     var res = await hasuraConnect.mutation(query);
     return true;
@@ -73,14 +80,13 @@ class Usuario extends Pessoa {
           id_google: "${usr.idGoogle}", 
           latitude: "${usr.latitude}", 
           longitude: "${usr.longitude}", 
-          id_instituicao: "${usr.instituicao.id}"           
+          id_instituicao: "${usr.idInstituicao}"           
         }){
           affected_rows
         }
       }
     """;
     var res = await hasuraConnect.mutation(query);
-    return true;  
+    return true;
   }
-
 }

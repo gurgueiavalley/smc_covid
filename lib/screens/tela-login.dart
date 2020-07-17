@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:intl/intl.dart';
 import 'package:smccovid/components/custom-botton.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/models/resposta.dart';
 import 'package:smccovid/screens/home.dart';
 import 'package:smccovid/screens/tela-questionario.dart';
 import 'package:smccovid/screens/verificar_questionario.dart';
+import '../models/instituicao.dart';
+import '../models/instituicao.dart';
+import '../models/usuario.dart';
 import 'sign_in.dart';
 
 class Tela_Login extends StatefulWidget {
@@ -83,6 +85,19 @@ class _Tela_LoginState extends State<Tela_Login> {
                   }
                 } else {
                   print('sim 3');
+                  Usuario usuario = Usuario();
+                  usuario.idGoogle = idUsuario;
+                  usuario.nome = name;
+                  usuario.email = email;
+                  usuario.idade = 18;
+                  usuario.latitude = dados_localizacao['position']['latitude'];
+                  usuario.longitude =
+                      dados_localizacao['position']['longitude'];
+                  /*Mudar quando tiver pegando o id da instituicao*/
+                  usuario.idInstituicao = 1;
+                  //cadastrando o usuario na tabela usuarios
+                  usuario.cadastrar(usuario);
+
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {

@@ -6,19 +6,26 @@ import 'package:smccovid/models/resposta.dart';
 import 'package:smccovid/screens/home.dart';
 import 'package:smccovid/screens/tela-questionario.dart';
 import 'package:smccovid/screens/verificar_questionario.dart';
+import '../models/contactchecklist.dart';
+import '../models/contactchecklist.dart';
+import '../models/contactchecklist.dart';
+import '../models/contactchecklist.dart';
 import '../models/instituicao.dart';
 import '../models/instituicao.dart';
 import '../models/usuario.dart';
+import 'sign_in.dart';
 import 'sign_in.dart';
 
 class Tela_Login extends StatefulWidget {
   @override
   _Tela_LoginState createState() => _Tela_LoginState();
+  int idInstitucao;
+  Tela_Login({Key key, @required this.idInstitucao}) : super(key: key);
+
 }
 
 class _Tela_LoginState extends State<Tela_Login> {
   bool _press = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +66,16 @@ class _Tela_LoginState extends State<Tela_Login> {
                 //pegando dados da tabela resposta no banco
                 var dados = await hasuraConnect
                     .query(Resposta().verificaResposta(idUsuario));
+
+                //Cadastrando Usuario no banco sqlite
+                ContactCheckList check = ContactCheckList();
+                Contact contact = Contact();
+                contact.idGoogle = idUsuario;
+                contact.check = true;
+                check.saveContact(contact);
+
+                print(check.getAllContacts());
+
                 VerificarQuestionario vrq = VerificarQuestionario();
                 var situacao = await vrq.verficarRespostaUsuario(idUsuario);
                 if (situacao) {

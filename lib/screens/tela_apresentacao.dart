@@ -4,6 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:smccovid/components/apresentacao.dart';
 import 'package:smccovid/constants/constants.dart';
 
+import '../models/contactchecklist.dart';
+import '../models/contactchecklist.dart';
+import 'tela-selecao-instituicao.dart';
+
 
 class Tela_Apresentacao extends StatefulWidget {
   @override
@@ -131,7 +135,9 @@ class _Tela_ApresentacaoState extends State<Tela_Apresentacao> {
 
                   icon: Icon(Icons.arrow_forward, color: Colors.grey,),
                   onPressed: (){
-                   print('Ir para proxima pagina');
+                    ContactCheckList check = ContactCheckList();
+                    check.initDb();
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>TelaSelecaoInstituicao()));
                   },                  
                   label: Text('Pular', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),),
                   borderSide: BorderSide(

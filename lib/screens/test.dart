@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smccovid/screens/sign_in.dart';
+import 'package:smccovid/screens/verificar-login.dart';
+
+import '../models/contactchecklist.dart';
+import '../models/contactchecklist.dart';
 
 class test extends StatefulWidget {
   @override
@@ -11,8 +15,8 @@ class _testState extends State<test> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(email);
-    print(idUsuario);
+    ContactCheckList c = ContactCheckList();
+
   }
 
   @override

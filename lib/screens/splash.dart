@@ -5,6 +5,11 @@ import 'package:location/location.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/tela-login.dart';
+import 'package:smccovid/screens/verificar-login.dart';
+
+import 'tela-login.dart';
+import 'tela_apresentacao.dart';
+import 'tela_apresentacao.dart';
 
 class Tela_Splash extends StatefulWidget {
   @override
@@ -34,7 +39,17 @@ class _Tela_SplashState extends State<Tela_Splash> {
               builder: (_, d) {
                 if (d.hasData) {
                   dados_localizacao = d.data.elementAt(0).toJson();
-                  return Tela_Login();
+                  return FutureBuilder(
+                    future: verificarPrimeiroAcesso(),
+                    builder: (context, d){
+                      if(d.data == true){
+                        return Tela_Login();
+                      }else{
+                        return Tela_Apresentacao();
+                      }
+                    }
+                  );
+                  
                 } else {
                   return Center(
                       child: Column(

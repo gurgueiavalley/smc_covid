@@ -182,10 +182,11 @@ class _TelaAglomeracaoState extends State<TelaAglomeracao> {
                                           FlatButton(
                                             onPressed: (){
                                               Aglomeracao a = Aglomeracao();
-                                              a.id_usuario = 2;
+                                              a.id_google = "${idUsuario}";
                                               a.latitude = dados_localizacao['position']['latitude'];
                                               a.longitude = dados_localizacao['position']['longitude'];
                                               a.descricao = controller.text;
+                                              a.data_hora = DateTime.now();
                                               a.cadastrar(a);
                                               controller.text = "";
                                               Navigator.pop(context);

@@ -24,14 +24,15 @@ class _CustomMapAglomeracaoState extends State<CustomMapAglomeracao> {
               future: hasuraConnect.query(Aglomeracao().listar()),  
               builder: (context, d){
                 if(d.hasData){
-                  for(int i = 0; i < d.data['data']['aglomeracao'].length; i ++){
-                    marcacoes.add(
+                  print(d.data);
+                  for(int i = 0; i < d.data['data']['aglomeracoes'].length; i ++){
+                    marcacoes.add( 
                       Marker(
                         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
-                        markerId: MarkerId("${d.data['data']['aglomeracao'][i]['id']}"),
-                        position: LatLng(d.data['data']['aglomeracao'][i]['latitude'], d.data['data']['aglomeracao'][i]['longitude']),
+                        markerId: MarkerId("${d.data['data']['aglomeracoes'][i]['id_google']}"),
+                        position: LatLng(d.data['data']['aglomeracoes'][i]['latitude'], d.data['data']['aglomeracoes'][i]['longitude']),
                         infoWindow: InfoWindow(
-                          title: "${d.data['data']['aglomeracao'][i]['descricao']}",
+                          title: "${d.data['data']['aglomeracoes'][i]['descricao']}",
                         )
                       ),
                     );

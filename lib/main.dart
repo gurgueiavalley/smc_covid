@@ -6,6 +6,7 @@ import 'package:smccovid/screens/tela_apresentacao.dart';
 
 import 'screens/splash.dart';
 import 'screens/tela-login.dart';
+import 'screens/test.dart';
 
 main(List<String> args) {
   SystemChrome.setSystemUIOverlayStyle(
@@ -14,7 +15,8 @@ main(List<String> args) {
   runApp(MaterialApp(
     //home: Tela_Apresentacao(),
     //home: Tela_Login(),
-    home: Tela_Splash(),
+   home: Tela_Splash(),
+     // home: test(),
     debugShowCheckedModeBanner: false,
   ));
 }

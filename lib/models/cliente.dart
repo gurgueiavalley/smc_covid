@@ -5,9 +5,11 @@ import 'pessoa.dart';
 
 class Cliente extends Pessoa {
   String senha;
+  int idInstituicao;
 
   /* Construtor da classe Cliente */
-  Cliente({int id, String nome, String email, Instituicao instituicao, String senha}) : super(id, nome, email, instituicao);
+  Cliente({int id, String nome, String email, int idInstituicao, String senha})
+      : super(id, nome, email);
 
   /*  Método cadastrar Cliente  */
   cadastrar(Cliente cliente) async {
@@ -16,7 +18,7 @@ class Cliente extends Pessoa {
         insert_clientes(objects: {
           nome: "${cliente.nome}", 
           email: "${cliente.email}",
-          id_instituicao: "${cliente.instituicao.id}",
+          id_instituicao: "${cliente.idInstituicao}",
           senha: "${cliente.senha}"
         }) {
           affected_rows
@@ -61,7 +63,7 @@ class Cliente extends Pessoa {
          _set: {
           nome: "${cliente.nome}", 
           email: "${cliente.email}", 
-          id_instituicao: "${cliente.instituicao.id}"           
+          id_instituicao: "${cliente.idInstituicao}"           
           senha: "${cliente.senha}"           
         }){
           affected_rows
@@ -69,7 +71,6 @@ class Cliente extends Pessoa {
       }
     """;
     var res = await hasuraConnect.mutation(query);
-    return true;  
+    return true;
   }
-
 }

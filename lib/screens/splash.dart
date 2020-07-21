@@ -17,12 +17,7 @@ class Tela_Splash extends StatefulWidget {
 }
 
 class _Tela_SplashState extends State<Tela_Splash> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

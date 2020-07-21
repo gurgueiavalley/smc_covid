@@ -15,8 +15,8 @@ main(List<String> args) {
   runApp(MaterialApp(
     //home: Tela_Apresentacao(),
     //home: Tela_Login(),
-   home: Tela_Splash(),
-     // home: test(),
+    home: Tela_Splash(),
+    //home: test(),
     debugShowCheckedModeBanner: false,
   ));
 }

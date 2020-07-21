@@ -5,6 +5,7 @@ import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/models/resposta.dart';
 import 'package:smccovid/screens/home.dart';
 import 'package:smccovid/screens/tela-questionario.dart';
+import 'package:smccovid/screens/verificar-login.dart';
 import 'package:smccovid/screens/verificar_questionario.dart';
 import '../models/contactchecklist.dart';
 import '../models/contactchecklist.dart';
@@ -72,7 +73,11 @@ class _Tela_LoginState extends State<Tela_Login> {
                 Contact contact = Contact();
                 contact.idGoogle = idUsuario;
                 contact.check = true;
-                check.saveContact(contact);
+                bool a = await verificarPrimeiroAcesso(); 
+                if(a == false){
+                  check.saveContact(contact);
+                }
+                
 
                 print(check.getAllContacts());
 

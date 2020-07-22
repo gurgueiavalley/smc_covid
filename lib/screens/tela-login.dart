@@ -22,7 +22,6 @@ class Tela_Login extends StatefulWidget {
   _Tela_LoginState createState() => _Tela_LoginState();
   int idInstitucao;
   Tela_Login({Key key, @required this.idInstitucao}) : super(key: key);
-
 }
 
 class _Tela_LoginState extends State<Tela_Login> {
@@ -68,42 +67,56 @@ class _Tela_LoginState extends State<Tela_Login> {
                 var dados = await hasuraConnect
                     .query(Resposta().verificaResposta(idUsuario));
 
+                
+
+
                 //Cadastrando Usuario no banco sqlite
                 ContactCheckList check = ContactCheckList();
                 Contact contact = Contact();
                 contact.idGoogle = idUsuario;
                 contact.check = true;
-                bool a = await verificarPrimeiroAcesso(); 
-                if(a == false){
+                bool a = await verificarPrimeiroAcesso();
+                if (a == false) {
                   check.saveContact(contact);
                 }
-                
-
+                //Mostrando todos os usuarios no sqlite.
                 print(check.getAllContacts());
 
-                VerificarQuestionario vrq = VerificarQuestionario();
-                var situacao = await vrq.verficarRespostaUsuario(idUsuario);
-                if (situacao) {
-                  var situacaoQuestionatio =
-                      await vrq.verificaDataRespostaUsuario(idUsuario);
-                  if (situacaoQuestionatio) {
-                    print('sim 1');
+                //Verificando se o usuario já foi cadastrado.
+                var verificaUsuario = await hasuraConnect.query(Usuario().buscar(idUsuario));
+                print("Qtd user:  ${verificaUsuario['data']['usuarios'].length}");
+                if (verificaUsuario['data']['usuarios'].length == 1) {
+                  VerificarQuestionario vrq = VerificarQuestionario();
+                  var situacao = await vrq.verficarRespostaUsuario(idUsuario);
+                  if (situacao) {
+                    var situacaoQuestionatio = await vrq.verificaDataRespostaUsuario(idUsuario);
+                    if (situacaoQuestionatio) {
+                      print('sim 1');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Questionario();
+                          },
+                        ),
+                      );
+                    } else {
+                      print('sim 2');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Home();
+                          },
+                        ),
+                      );
+                    }
+                  }else{
                     Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return Questionario();
-                        },
-                      ),
-                    );
-                  } else {
-                    print('sim 2');
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return Home();
-                        },
-                      ),
-                    );
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Questionario();
+                          },
+                        ),
+                      );
                   }
                 } else {
                   print('sim 3');
@@ -113,13 +126,11 @@ class _Tela_LoginState extends State<Tela_Login> {
                   usuario.email = email;
                   usuario.idade = 18;
                   usuario.latitude = dados_localizacao['position']['latitude'];
-                  usuario.longitude =
-                      dados_localizacao['position']['longitude'];
+                  usuario.longitude = dados_localizacao['position']['longitude'];
                   /*Mudar quando tiver pegando o id da instituicao*/
-                  usuario.idInstituicao = 1;
+                  usuario.idInstituicao = widget.idInstitucao;
                   //cadastrando o usuario na tabela usuarios
                   usuario.cadastrar(usuario);
-
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {

@@ -55,6 +55,26 @@ class Usuario extends Pessoa {
     return query;
   }
 
+//Buscar Usuario
+
+buscar(String idGoogle){
+  String query = """
+    query MyQuery {
+      usuarios(where: {id_google: {_eq: "$idGoogle"}}) {
+        id_google
+        id_instituicao
+        idade
+        latitude
+        longitude
+        nome
+      }
+    }
+  """;
+
+  return query;
+}
+
+
   /* Método excluir Usuario */
   excluir(int id) async {
     String query = """

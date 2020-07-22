@@ -163,6 +163,7 @@ class _QuestionarioState extends State<Questionario> {
                         }
                         resposta.respostas = resultadoQ;
                         resposta.data = new DateTime.now();
+                        resposta.idUsuario = idUsuario;
 
                         VerificarQuestionario vrq = VerificarQuestionario();
                         var situacao =

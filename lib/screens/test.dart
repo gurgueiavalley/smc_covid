@@ -16,7 +16,7 @@ class _testState extends State<test> {
     // TODO: implement initState
     super.initState();
     ContactCheckList c = ContactCheckList();
-    //c.deleteContact(1);
+    c.deleteContact(1);
   
   }
 

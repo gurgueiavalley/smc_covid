@@ -51,7 +51,7 @@ class _Tela_ApresentacaoState extends State<Tela_Apresentacao> {
             allowImplicitScrolling: true,
             children: [
               CardApresentacao(
-                img: Image.asset('assets/p1.png', width: 250,),
+                img: Image.asset('assets/p1.png', width: MediaQuery.of(context).size.width * 0.3,),
                 textoL: 'Descubra o nível de exposição que você teve com pessoas infectadas.',
                 textoR: 'Descubra o nível de exposição que você teve com pessoas infectadas.',
               ),

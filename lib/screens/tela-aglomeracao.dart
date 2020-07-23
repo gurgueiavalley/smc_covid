@@ -46,6 +46,7 @@ class _TelaAglomeracaoState extends State<TelaAglomeracao> {
                               fontSize: 30,
                               color: Colors.white),
                         ),
+                      
                         CircleAvatar(
                           backgroundImage: NetworkImage(imageUrl),
                         ),

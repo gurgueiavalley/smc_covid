@@ -84,11 +84,18 @@ class _Tela_CentralState extends State<Tela_Central> {
                   ),
                   SizedBox(
                     height: 30,
-                  )
+                  ),
+
+                   SizedBox(
+            height: 35,
+          ),
+
+
                 ],
               ),
             ),
-          )
+          ),
+         
         ],
       ),
     ));

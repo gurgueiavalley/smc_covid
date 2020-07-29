@@ -67,16 +67,10 @@ class _Tela_ApresentacaoState extends State<Tela_Apresentacao> {
                 img: Image.asset('assets/p4.png', width: 200,),
                 textoL: 'Seja notificado se perto existe algum caso confirmado \nde contaminação pelo coronavírus',),
 
-
-
-
-
               CardApresentacao(
                 img: Image.asset('assets/p5.png', width: 200,),
                 textoL: 'É possível acompanhar e cadastrar as aglomerações \nem tempo real pelo \nnosso site através \ndo mapa',
               ),
-
-
 
             
             ],

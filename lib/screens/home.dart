@@ -36,6 +36,7 @@ class _HomeState extends State<Home> {
       handleAndroidBackButtonPress: true,
       iconSize: 26.0,
       navBarStyle: NavBarStyle.style6, 
+      popAllScreensOnTapOfSelectedTab: true,
      
       onItemSelected: (index) {
         print(index);

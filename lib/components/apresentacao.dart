@@ -40,7 +40,7 @@ class CardApresentacao extends StatelessWidget {
 
           Center(child: img),
 
-          Container(height: 130,)
+          Container(height: MediaQuery.of(context).size.width/6,)
 
           
 

@@ -37,11 +37,11 @@ class _Tela_SplashState extends State<Tela_Splash> {
                     future: verificarPrimeiroAcesso(),
                     builder: (_, d){
                       if(d.data == true){
-                        return Tela_Login();
+                        return Tela_Login(idInstitucao: null,);
                       }else if(d.data == false){
                         return Tela_Apresentacao();
                       }else{
-                        return Tela_Login();
+                        return Tela_Login(idInstitucao: null,);
                       }
                     }
                   );

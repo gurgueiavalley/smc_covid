@@ -63,33 +63,44 @@ class _Tela_LoginState extends State<Tela_Login> {
             ),
             onPressed: () {
               signInWithGoogle().whenComplete(() async {
+                print('Passou');
+
                 //pegando dados da tabela resposta no banco
-                var dados = await hasuraConnect
-                    .query(Resposta().verificaResposta(idUsuario));
-
-                
-
+                /* var dados = await hasuraConnect.query(
+                  Resposta().verificaResposta(
+                    idUsuario,
+                  ),
+                ); */
 
                 //Cadastrando Usuario no banco sqlite
                 ContactCheckList check = ContactCheckList();
                 Contact contact = Contact();
                 contact.idGoogle = idUsuario;
                 contact.check = true;
+
+                print(idUsuario);
+
                 bool a = await verificarPrimeiroAcesso();
+
                 if (a == false) {
-                  check.saveContact(contact);
+                  await check.saveContact(contact);
                 }
                 //Mostrando todos os usuarios no sqlite.
                 print(check.getAllContacts());
 
                 //Verificando se o usuario já foi cadastrado.
-                var verificaUsuario = await hasuraConnect.query(Usuario().buscar(idUsuario));
-                print("Qtd user:  ${verificaUsuario['data']['usuarios'].length}");
+                var verificaUsuario =
+                    await hasuraConnect.query(Usuario().buscar(idUsuario));
+                print(
+                    "Qtd user:  ${verificaUsuario['data']['usuarios'].length}");
                 if (verificaUsuario['data']['usuarios'].length == 1) {
                   VerificarQuestionario vrq = VerificarQuestionario();
                   var situacao = await vrq.verficarRespostaUsuario(idUsuario);
                   if (situacao) {
-                    var situacaoQuestionatio = await vrq.verificaDataRespostaUsuario(idUsuario);
+                    var situacaoQuestionatio =
+                        await vrq.verificaDataRespostaUsuario(
+                      idUsuario,
+                    );
                     if (situacaoQuestionatio) {
                       print('sim 1');
                       Navigator.of(context).push(
@@ -109,14 +120,14 @@ class _Tela_LoginState extends State<Tela_Login> {
                         ),
                       );
                     }
-                  }else{
+                  } else {
                     Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return Questionario();
-                          },
-                        ),
-                      );
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Questionario();
+                        },
+                      ),
+                    );
                   }
                 } else {
                   print('sim 3');
@@ -126,7 +137,8 @@ class _Tela_LoginState extends State<Tela_Login> {
                   usuario.email = email;
                   usuario.idade = 18;
                   usuario.latitude = dados_localizacao['position']['latitude'];
-                  usuario.longitude = dados_localizacao['position']['longitude'];
+                  usuario.longitude =
+                      dados_localizacao['position']['longitude'];
                   /*Mudar quando tiver pegando o id da instituicao*/
                   usuario.idInstituicao = widget.idInstitucao;
                   //cadastrando o usuario na tabela usuarios
@@ -154,20 +166,29 @@ class _Tela_LoginState extends State<Tela_Login> {
             title: Text(
               'FACEBOOK',
               style: TextStyle(
-                  color: cor_base, fontSize: 25, fontWeight: FontWeight.bold),
+                color: cor_base,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             onPressed: _press
                 ? () {
                     print('pressionado');
                     _press = false;
-                    setState(() {});
+                    setState(
+                      () {},
+                    );
                   }
                 : null,
           ),
-          Expanded(child: Container()),
+          Expanded(
+            child: Container(),
+          ),
           Text(
             'By ADS V',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
           SizedBox(
             height: 20,

@@ -5,6 +5,7 @@ import 'package:location/location.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/models/contactchecklist.dart';
+import 'package:smccovid/screens/sign_in.dart';
 import 'package:smccovid/screens/tela-login.dart';
 import 'package:smccovid/screens/tela_apresentacao.dart';
 import 'package:smccovid/screens/verificar-login.dart';
@@ -28,24 +29,25 @@ class _Tela_SplashState extends State<Tela_Splash> {
           if (d.hasData) {
             print(d.data.latitude);
             return FutureBuilder<List<Placemark>>(
-              future: Geolocator()
-                  .placemarkFromCoordinates(d.data.latitude, d.data.longitude),
+              future: Geolocator().placemarkFromCoordinates(
+                d.data.latitude,
+                d.data.longitude,
+              ),
               builder: (_, d) {
                 if (d.hasData) {
                   dados_localizacao = d.data.elementAt(0).toJson();
                   return FutureBuilder(
                     future: verificarPrimeiroAcesso(),
-                    builder: (_, d){
-                      if(d.data == true){
-                        return Tela_Login(idInstitucao: null,);
-                      }else if(d.data == false){
+                    builder: (_, d) {
+                      if (d.data == true) {
+                        return Tela_Login(
+                          idInstitucao: null,
+                        );
+                      } else {
                         return Tela_Apresentacao();
-                      }else{
-                        return Tela_Login(idInstitucao: null,);
                       }
-                    }
+                    },
                   );
-                  
                 } else {
                   return Center(
                       child: Column(

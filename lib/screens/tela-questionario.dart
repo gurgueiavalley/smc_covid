@@ -161,6 +161,10 @@ class _QuestionarioState extends State<Questionario> {
                         } else if (totaltrue > 0 && totaltrue <= 1) {
                           resultadoQ = 'vermelho';
                         }
+                        for (int i = 0; i < perguntasTeste.length; i++) {
+                          if (i == 7 && perguntasTeste[i]['valor'] == true) ;
+                          resultadoQ = 'vermelho';
+                        }
                         resposta.respostas = resultadoQ;
                         resposta.data = new DateTime.now();
                         resposta.idUsuario = idUsuario;

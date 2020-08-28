@@ -13,9 +13,8 @@ class _TelaSelecaoInstituicaoState extends State<TelaSelecaoInstituicao> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-        children: [
+        body: SingleChildScrollView(
+      child: Stack(children: [
         SafeArea(
             child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -47,69 +46,81 @@ class _TelaSelecaoInstituicaoState extends State<TelaSelecaoInstituicao> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Text("Escolha sua instituição", style: TextStyle(
-                            fontSize: 19
-                          ),)
+                          Text(
+                            "Escolha sua instituição",
+                            style: TextStyle(fontSize: 19),
+                          )
                         ],
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       SizedBox(
-
                         height: MediaQuery.of(context).size.height / 1.7,
                         child: FutureBuilder(
-                        future: hasuraConnect.query(Instituicao().listar()),
-                        builder: (_, dados) {
-                          //print(dados);
-                            if(dados.hasData){
+                          future: hasuraConnect.query(Instituicao().listar()),
+                          builder: (_, dados) {
+                            //print(dados);
+                            if (dados.hasData) {
                               return GridView.builder(
-                                scrollDirection: Axis.vertical,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 5.0, mainAxisSpacing: 4.0), 
-                                itemCount: dados.data['data']['instituicoes'].length,
-                                itemBuilder: (context, index){
-                                  return GestureDetector(
-                                    child: Card(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                                    elevation: 10,
-                                    child: GridTile(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Icon(Icons.person, size: 80,),
-                                          Text(dados.data['data']['instituicoes'][index]['nome'], 
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18
+                                  scrollDirection: Axis.vertical,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 5.0,
+                                          mainAxisSpacing: 4.0),
+                                  itemCount:
+                                      dados.data['data']['instituicoes'].length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        elevation: 10,
+                                        child: GridTile(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Image.network(
+                                              dados.data['data']['instituicoes']
+                                                  [index]['img'],
+                                              width: 100,
                                             ),
-                                          ),
-                                        ],
-                                      )
-                                    ),
-                                  ),
-                                  onTap: (){
-                                    int id = dados.data['data']['instituicoes'][index]['id'];
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Tela_Login(idInstitucao: id,)));
-                                    print(dados.data['data']['instituicoes'][index]['id']);
-                                  },
-                                  );
-                                }
-                              );
-                            }else{
+                                            Text(
+                                              dados.data['data']['instituicoes']
+                                                  [index]['nome'],
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
+                                            ),
+                                          ],
+                                        )),
+                                      ),
+                                      onTap: () {
+                                        int id = dados.data['data']
+                                            ['instituicoes'][index]['id'];
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Tela_Login(
+                                                      idInstitucao: id,
+                                                    )));
+                                        print(dados.data['data']['instituicoes']
+                                            [index]['id']);
+                                      },
+                                    );
+                                  });
+                            } else {
                               return Center(child: CircularProgressIndicator());
                             }
-                            
-                        },
+                          },
                         ),
                       ),
-                    ]
-
-                  )
-                )
-              ),
-            ]
-          ),
-      )
-    );
+                    ]))),
+      ]),
+    ));
   }
 }

@@ -26,6 +26,7 @@ dependencies:
   hasura_connect: ^1.2.2+1
   firebase_auth: ^0.16.1
   google_sign_in: ^4.5.1
+
   #firebase_core_web: ^0.1.1+2
   #faz a formatacao da data DateFormat("yy-MM-dd")
   intl:
@@ -44,6 +45,7 @@ dependencies:
   carousel_slider: ^2.2.1
   dots_indicator: ^1.2.0
   sqflite:
+  url_launcher:
   
 
 dev_dependencies:

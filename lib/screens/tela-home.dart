@@ -4,6 +4,8 @@ import 'package:smccovid/components/sintomas.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
 import 'package:smccovid/screens/tela-estatistica.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:smccovid/screens/tela-questionario.dart';
 
 class Tela_Home extends StatefulWidget {
   @override
@@ -120,7 +122,14 @@ class _Tela_HomeState extends State<Tela_Home> {
                                           'Refaça o teste',
                                           style: TextStyle(color: Colors.white),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Questionario()));
+                                        },
                                         color: cor_base,
                                       ),
                                     )
@@ -178,7 +187,7 @@ class _Tela_HomeState extends State<Tela_Home> {
                   'Prevenção',
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
-                onPressed: () {},
+                onPressed: _launchURLPrevencao,
               ),
               BottonHome(
                 icon: Icon(
@@ -190,7 +199,7 @@ class _Tela_HomeState extends State<Tela_Home> {
                   'Informações',
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
-                onPressed: () {},
+                onPressed: _launchURLInformacao,
               ),
               BottonHome(
                 icon: Icon(
@@ -217,5 +226,23 @@ class _Tela_HomeState extends State<Tela_Home> {
         ],
       ),
     );
+  }
+
+  _launchURLInformacao() async {
+    const url = 'https://www.paho.org/pt/covid19';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLPrevencao() async {
+    const url = 'https://coronavirus.saude.gov.br/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

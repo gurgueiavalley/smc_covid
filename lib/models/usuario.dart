@@ -28,6 +28,7 @@ class Usuario extends Pessoa {
      mutation MyMutation {
       insert_usuarios(objects: {
         id_google: "${usr.idGoogle}", 
+        email: "${usr.email}", 
         id_instituicao: "${usr.idInstituicao}", 
         idade: ${usr.idade}, 
         latitude: "${usr.latitude}", 
@@ -57,8 +58,8 @@ class Usuario extends Pessoa {
 
 //Buscar Usuario
 
-buscar(String idGoogle){
-  String query = """
+  buscar(String idGoogle) {
+    String query = """
     query MyQuery {
       usuarios(where: {id_google: {_eq: "$idGoogle"}}) {
         id_google
@@ -67,13 +68,13 @@ buscar(String idGoogle){
         latitude
         longitude
         nome
+        email
       }
     }
   """;
 
-  return query;
-}
-
+    return query;
+  }
 
   /* Método excluir Usuario */
   excluir(int id) async {

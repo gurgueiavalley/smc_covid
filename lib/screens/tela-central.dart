@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smccovid/components/botton-telefone.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Tela_Central extends StatefulWidget {
   @override
@@ -64,40 +65,64 @@ class _Tela_CentralState extends State<Tela_Central> {
                   ),
                   BottonTelefone(
                     titulo: 'SECRETARIA DE SAUDE',
-                    onPressed: () {},
+                    onPressed: _launchURLSecretarSaude,
                     icon: Icons.phone,
                   ),
                   BottonTelefone(
                     titulo: 'HOSPITAL',
-                    onPressed: () {},
+                    onPressed: _launchURLSecretarSaude,
                     icon: Icons.phone,
                   ),
                   BottonTelefone(
                     titulo: 'PRONTO SOCORRO',
-                    onPressed: () {},
+                    onPressed: _launchURLFazerLigacao,
                     icon: Icons.phone,
                   ),
                   BottonTelefone(
-                    titulo: 'NOTÍCIAS',
-                    onPressed: () {},
+                    titulo: 'NOTÍCIAS IMPORTANTES',
+                    onPressed: _launchURLInformacaoCorona,
                     icon: Icons.info,
                   ),
                   SizedBox(
                     height: 30,
                   ),
-
-                   SizedBox(
-            height: 35,
-          ),
-
-
+                  SizedBox(
+                    height: 35,
+                  ),
                 ],
               ),
             ),
           ),
-         
         ],
       ),
     ));
+  }
+
+  _launchURLInformacaoCorona() async {
+    const url =
+        'https://news.google.com/topics/CAAqBwgKMN30lwsw_J2vAw?hl=pt-BR&gl=BR&ceid=BR%3Apt-419';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLSecretarSaude() async {
+    const url = 'https://www.conass.org.br/secretarios-estaduais-de-saude/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLFazerLigacao() async {
+    const url = "tel:192";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

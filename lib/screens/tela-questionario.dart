@@ -158,13 +158,13 @@ class _QuestionarioState extends State<Questionario> {
                           resultadoQ = 'verde';
                         } else if (totaltrue >= 2 && totaltrue <= 6) {
                           resultadoQ = 'amarelo';
-                        } else if (totaltrue > 0 && totaltrue <= 1) {
+                        } else if (totaltrue >= 0 && totaltrue <= 1) {
                           resultadoQ = 'vermelho';
-                        }
-                        for (int i = 0; i < perguntasTeste.length; i++) {
+                        }print('cor: '+ resultadoQ);
+                       /* for (int i = 0; i < perguntasTeste.length; i++) {
                           if (i == 7 && perguntasTeste[i]['valor'] == true) ;
                           resultadoQ = 'vermelho';
-                        }
+                        }*/
                         resposta.respostas = resultadoQ;
                         resposta.data = new DateTime.now();
                         resposta.idUsuario = idUsuario;

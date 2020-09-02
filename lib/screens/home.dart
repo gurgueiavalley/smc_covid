@@ -12,11 +12,12 @@ import '../constants/constants.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
+  
 }
 
 class _HomeState extends State<Home> {
   PersistentTabController _controller;
-
+  
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
@@ -28,6 +29,7 @@ class _HomeState extends State<Home> {
       popAllScreensOnTapOfSelectedTab: true,
       onItemSelected: (index) {
         print(index);
+        
       },
     );
   }

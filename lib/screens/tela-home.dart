@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hasura_connect/hasura_connect.dart';
 import 'package:smccovid/components/botton-home.dart';
 import 'package:smccovid/components/sintomas.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
 import 'package:smccovid/screens/tela-estatistica.dart';
+import 'package:smccovid/screens/tela-login.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smccovid/screens/tela-questionario.dart';
+import 'package:smccovid/models/resposta.dart';
+
+import '../models/resposta.dart';
+import '../models/resposta.dart';
+import '../models/resposta.dart';
+import 'sign_in.dart';
 
 class Tela_Home extends StatefulWidget {
   @override
@@ -13,12 +21,35 @@ class Tela_Home extends StatefulWidget {
 }
 
 class _Tela_HomeState extends State<Tela_Home> {
+  var cor;
+  bool valor = true;
+  Questionario questionario = Questionario();
+
   @override
-  void initState() {
+  Future<void> initState() {
     // TODO: implement initState
     super.initState();
     print('Sua localização');
     print(dados_localizacao);
+    _aguardar().then((value) => setState(() {
+          valor = value;
+        }));
+
+    _funcaoResposta().then((value) => setState(() {
+          cor = value;
+          print('cor do card: ' + cor);
+        }));
+  }
+
+  Future _aguardar() async {
+    await Future.delayed(Duration(seconds: 5));
+    return valor = false;
+  }
+
+  Future _funcaoResposta() async {
+    await Future.delayed(Duration(seconds: 3));
+    var resposta = await hasuraConnect.query(Resposta().corResposta(idUsuario));
+    return "${resposta['data']['respostas']}";
   }
 
   @override
@@ -42,7 +73,7 @@ class _Tela_HomeState extends State<Tela_Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Olá, ',
+                            'Olá ',
                             style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 30,
@@ -50,96 +81,171 @@ class _Tela_HomeState extends State<Tela_Home> {
                           ),
                           Text(
                             googleSignIn.currentUser.displayName,
-                            style: TextStyle(fontSize: 26, color: Colors.white),
+                            style: TextStyle(
+                              fontSize: 26,
+                              color: Colors.white,
+                            ),
                           ),
                           Expanded(child: Container()),
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(imageUrl),
+                          GestureDetector(
+                            onTap: () {
+                              return _alerta();
+                            },
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(imageUrl),
+                            ),
                           )
                         ],
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.width / 15),
-                        height: MediaQuery.of(context).size.width / 2.5,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(color: Colors.black12, blurRadius: 10)
-                            ]),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.account_circle,
-                                    size: 100,
-                                    color: Colors.red,
-                                  ),
-                                  Text(
-                                    'Nível 03',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.red),
-                                  )
-                                ],
+                      valor == true
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 7,
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 1.6,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                        child: Text(
-                                      'Você tem uma grande possibilidade de está com a COVID 19',
-                                      style: TextStyle(color: Colors.red),
-                                    )),
-                                    Divider(
-                                      color: Colors.black,
-                                    ),
-                                    Text(
-                                      'Procure um Hospital mais próximos.',
-                                      style: TextStyle(color: cor_base),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.bottomRight,
-                                      width: MediaQuery.of(context).size.width /
-                                          1.5,
-                                      height: 50,
-                                      child: RaisedButton(
-                                        child: Text(
-                                          'Refaça o teste',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Questionario()));
-                                        },
-                                        color: cor_base,
-                                      ),
+                            )
+                          : Container(
+                              margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.width / 15),
+                              height: MediaQuery.of(context).size.width / 2.5,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      width: 6,
+                                      color: cor == '[{resposta: verde}]'
+                                          ? Colors.green
+                                          : cor == '[{resposta: amarelo}]'
+                                              ? Colors.yellow[700]
+                                              : Colors.red),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 10,
                                     )
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          maxRadius: 40,
+                                          backgroundColor: cor_base,
+                                          backgroundImage:
+                                              NetworkImage(imageUrl),
+                                        ),
+                                        cor == '[{resposta: amarelo}]'
+                                            ? Text('Nivel 2',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.yellow[700],
+                                                ))
+                                            : cor == '[{resposta: verde}]'
+                                                ? Text('Nivel 1',
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.green[700],
+                                                    ))
+                                                : Text('Nivel 3',
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.red,
+                                                    ))
+                                      ],
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          1.6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                              child: cor ==
+                                                      '[{resposta: amarelo}]'
+                                                  ? Text(
+                                                      'Você tem uma possibilidade média de está com a COVID 19',
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .yellow[700],
+                                                          fontSize: 18),
+                                                    )
+                                                  : cor == '[{resposta: verde}]'
+                                                      ? Text(
+                                                          'Você possivelmente não está com a COVID 19',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .green[700],
+                                                              fontSize: 18),
+                                                        )
+                                                      : Text(
+                                                          'Você tem uma grande possibilidade de está com a COVID 19',
+                                                          style: TextStyle(
+                                                              color: Colors.red,
+                                                              fontSize: 16),
+                                                        )),
+                                          Divider(
+                                            color: Colors.black,
+                                          ),
+                                          cor == '[{resposta: vermelho}]' ||
+                                                  cor == '[{resposta: amarelo}]'
+                                              ? Text(
+                                                  'Procure um Hospital mais próximo.',
+                                                  style: TextStyle(
+                                                    color: cor_base,
+                                                  ),
+                                                )
+                                              : Text(
+                                                  '.',
+                                                ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            alignment: Alignment.bottomRight,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                1.5,
+                                            height: 50,
+                                            child: RaisedButton(
+                                              child: Text(
+                                                'Refaça o teste',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Questionario()));
+                                              },
+                                              color: cor_base,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
+                            ),
                     ],
                   ),
                 ),
@@ -244,5 +350,79 @@ class _Tela_HomeState extends State<Tela_Home> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  _alerta() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Align(
+              alignment: Alignment.bottomLeft,
+              child: AlertDialog(
+                backgroundColor: cor_base,
+                title: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/logo.png',
+                          scale: 6,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'Sair',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+                content: Text('deseja sair da sua conta ?',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center),
+                actions: [
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 50, right: 60),
+                      child: Row(
+                        children: [
+                          FlatButton(
+                              onPressed: () {
+                                setState(() {
+                                  Navigator.pop(context);
+                                  signOutGoogle();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Tela_Login()));
+                                });
+                              },
+                              child: Text(
+                                'Sair',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.start,
+                              )),
+                          FlatButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'Cancelar',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                                textAlign: TextAlign.start,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ));
+        });
   }
 }

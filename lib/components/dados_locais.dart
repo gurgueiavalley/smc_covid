@@ -60,7 +60,16 @@ class _Dados_locaisState extends State<Dados_locais> {
             );
           }else if(snapshot.hasError){
             return Center(
-              child: Text("Erro ao Carregar"),
+              child: Text("Erro ao Carregar",),
+            );
+          }else if(dados_localizacao['country']!='Brazil'){
+            return Center(
+              child: Text("Sem Localização!", style: TextStyle(color: cor_base, fontSize: 30),),
+            );
+          }
+          else if(snapshot.data['results'][0]['city'].toString()==null){
+            return Center(
+              child: Text("Sem Localização!", style: TextStyle(color: cor_base, fontSize: 30),),
             );
           }
           else{

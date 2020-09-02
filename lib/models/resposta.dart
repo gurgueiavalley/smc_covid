@@ -50,9 +50,23 @@ class Resposta {
         respostas(where: {id_google: {_eq: "$idUsuario"}}) {
           id_google
           data
+          resposta
+          
         }
       }
     """;
     return query;
   }
+  corResposta(String idUsuario) {
+    String query = """ 
+    query MyQuery {
+        respostas(where: {id_google: {_eq: "$idUsuario"}}) {
+          resposta
+          
+        }
+      }
+    """;
+    return query;
+  }
+  
 }

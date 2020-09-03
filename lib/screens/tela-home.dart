@@ -1,5 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hasura_connect/hasura_connect.dart';
 import 'package:smccovid/components/botton-home.dart';
 import 'package:smccovid/components/sintomas.dart';
 import 'package:smccovid/constants/constants.dart';
@@ -9,9 +9,6 @@ import 'package:smccovid/screens/tela-login.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smccovid/screens/tela-questionario.dart';
 import 'package:smccovid/models/resposta.dart';
-
-import '../models/resposta.dart';
-import '../models/resposta.dart';
 import '../models/resposta.dart';
 import 'sign_in.dart';
 
@@ -99,8 +96,24 @@ class _Tela_HomeState extends State<Tela_Home> {
                       ),
                       valor == true
                           ? Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 7,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 10,
+                                    )
+                                  ],
+                                ),
+                                margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.width / 15,
+                                ),
+                                height: MediaQuery.of(context).size.width / 2.5,
+                                child: Center(
+                                  child: CupertinoActivityIndicator(),
+                                ),
                               ),
                             )
                           : Container(
@@ -229,12 +242,12 @@ class _Tela_HomeState extends State<Tela_Home> {
                                                     color: Colors.white),
                                               ),
                                               onPressed: () {
-                                                Navigator.pop(context);
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            Questionario()));
+                                                showDialog(
+                                                  context: context,
+                                                  child: Questionario(
+                                                    refazerTeste: true,
+                                                  ),
+                                                );
                                               },
                                               color: cor_base,
                                             ),
@@ -318,10 +331,17 @@ class _Tela_HomeState extends State<Tela_Home> {
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TelaEstatistica()));
+                  showDialog(
+                    context: context,
+                    child: TelaEstatistica(),
+                  );
+
+                  /* Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TelaEstatistica(),
+                    ),
+                  ); */
                 },
               ),
               SizedBox(

@@ -15,7 +15,7 @@ class _MenuMapasState extends State<MenuMapas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+        body: SingleChildScrollView(
       child: Stack(children: [
         Container(
           color: cor_base,
@@ -38,10 +38,9 @@ class _MenuMapasState extends State<MenuMapas> {
                                 color: Colors.white),
                           ),
                           GestureDetector(
-                            onTap: ()  {
-                             // return _alerta();
-                             return _alerta();
-                                                  
+                            onTap: () {
+                              // return _alerta();
+                              return _alerta();
                             },
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(imageUrl),
@@ -83,10 +82,10 @@ class _MenuMapasState extends State<MenuMapas> {
                             style: TextStyle(fontSize: 30, color: Colors.white),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TelaAglomeracao()));
+                            showDialog(
+                              context: context,
+                              child: TelaAglomeracao(),
+                            );
                           },
                         ),
                       ),
@@ -105,27 +104,22 @@ class _MenuMapasState extends State<MenuMapas> {
                             style: TextStyle(fontSize: 30, color: Colors.white),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TelaMapa()));
+                            showDialog(
+                              context: context,
+                              child: TelaMapa(),
+                            );
                           },
                         ),
                       ),
                       SizedBox(
                         height: 70,
                       )
-                    ]
+                    ])))
+      ]),
+    ));
+  }
 
-                  )
-                )
-              )
-            ]
-          ),
-        )
-      );
-    }
-    _alerta() {
+  _alerta() {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -199,4 +193,4 @@ class _MenuMapasState extends State<MenuMapas> {
               ));
         });
   }
-  }
+}

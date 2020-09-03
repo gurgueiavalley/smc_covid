@@ -103,7 +103,7 @@ class _Tela_LoginState extends State<Tela_Login> {
                     );
                     if (situacaoQuestionatio) {
                       print('sim 1');
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) {
                             return Questionario();
@@ -112,7 +112,7 @@ class _Tela_LoginState extends State<Tela_Login> {
                       );
                     } else {
                       print('sim 2');
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) {
                             return Home();
@@ -121,7 +121,7 @@ class _Tela_LoginState extends State<Tela_Login> {
                       );
                     }
                   } else {
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) {
                           return Questionario();
@@ -143,7 +143,7 @@ class _Tela_LoginState extends State<Tela_Login> {
                   usuario.idInstituicao = widget.idInstitucao;
                   //cadastrando o usuario na tabela usuarios
                   usuario.cadastrar(usuario);
-                  Navigator.of(context).push(
+                  Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) {
                         return Questionario();

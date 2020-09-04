@@ -102,17 +102,15 @@ class _RegionalState extends State<Regional> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 3,
-                                    color: cor_base,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: criaDropDownButton(),
-                            ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 3,
+                                  color: cor_base,
+                                ),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: criaDropDownButton(),
                           ),
                           novocontainer(
                               Colors.blue,
@@ -126,9 +124,7 @@ class _RegionalState extends State<Regional> {
                               Text(
                                 estado,
                                 style: TextStyle(
-                                    fontSize: estado.length <= 14                                             
-                                        ? 25
-                                        : 17,
+                                    fontSize: estado.length <= 14 ? 25 : 17,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.blue),
                               )),
@@ -178,8 +174,7 @@ class _RegionalState extends State<Regional> {
                         ],
                       ))
                 ],
-              )
-              );
+              ));
             }
           }),
     );
@@ -231,19 +226,17 @@ class _RegionalState extends State<Regional> {
   }
 
   Widget novocontainer(Color cor, Text texto1, texto2) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(2, 10, 2, 0),
-      child: Row(
-        children: [
-          Container(
-            width: 120,
-            height: 50,
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
-            color: cor,
-            child: texto1,
-          ),
-          Container(
-            width: 176,
+    return Row(
+      children: [
+        Container(
+          width: 120,
+          height: 50,
+          padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
+          color: cor,
+          child: texto1,
+        ),
+        Expanded(
+          child: Container(
             height: 50,
             padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
             decoration: BoxDecoration(
@@ -252,8 +245,8 @@ class _RegionalState extends State<Regional> {
             ),
             child: texto2,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

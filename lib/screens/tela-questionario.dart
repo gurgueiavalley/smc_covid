@@ -12,6 +12,9 @@ import '../components/custom-botton.dart';
 import '../constants/constants.dart';
 
 class Questionario extends StatefulWidget {
+  final bool refazerTeste;
+  const Questionario({Key key, this.refazerTeste}) : super(key: key);
+
   @override
   _QuestionarioState createState() => _QuestionarioState();
 }
@@ -37,6 +40,7 @@ var perguntasTeste = [
   },
   {'pergunta': 'Realizou consulta médica?', 'valor': false},
   {'pergunta': 'Realizou teste para a COVID-19?', 'valor': false},
+  {'pergunta': 'O resultado deu positivo?', 'valor': false},
   {
     'pergunta':
         'Você esteve ou está em isolamento social com monitoramento da equipe de saúde do seu município, ou internação hospitalar?',
@@ -56,143 +60,159 @@ class _QuestionarioState extends State<Questionario> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    //pegando o tamanho do vetor peguntas e add false a todas as posições
     int taml = perguntasTeste.length;
     for (var i = 0; i < taml; i++) {
       lsb.add(false);
+      perguntasTeste[i]['valor'] = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              color: cor_base,
-              height: MediaQuery.of(context).size.width / 2.5,
-            ),
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Questionário',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 30,
-                              color: Colors.white),
-                        ),
-                        Expanded(child: Container()),
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(imageUrl),
-                        )
-                      ],
-                    ),
-                    Center(
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.width / 30),
-                        height: MediaQuery.of(context).size.width / 2.5,
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        decoration: BoxDecoration(
-                            color: cor_base, shape: BoxShape.circle),
+      body: Scrollbar(
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Container(
+                color: cor_base,
+                height: MediaQuery.of(context).size.width / 2.5,
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Questionário',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 30,
+                                color: Colors.white),
+                          ),
+                          Expanded(child: Container()),
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(imageUrl),
+                          )
+                        ],
+                      ),
+                      Center(
                         child: Container(
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.all(5),
+                          margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.width / 30),
+                          height: MediaQuery.of(context).size.width / 2.5,
+                          width: MediaQuery.of(context).size.width / 2.5,
                           decoration: BoxDecoration(
-                              color: Colors.white, shape: BoxShape.circle),
-                          child: Icon(
-                            Icons.message,
-                            size: 80,
-                            color: cor_base,
+                              color: cor_base, shape: BoxShape.circle),
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                            child: Icon(
+                              Icons.message,
+                              size: 80,
+                              color: cor_base,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    for (int i = 0; i < perguntasTeste.length; i++)
-                      ItemPergunta(
-                        pergunta: perguntasTeste[i]['pergunta'],
-                        valor: perguntasTeste[i]['valor'],
-                        onPressed: () {
-                          if (perguntasTeste[i]['valor']) {
-                            perguntasTeste[i]['valor'] = false;
-                          } else {
-                            perguntasTeste[i]['valor'] = true;
+                      SizedBox(
+                        height: 50,
+                      ),
+                      for (int i = 0; i < perguntasTeste.length; i++)
+                        ItemPergunta(
+                          pergunta: perguntasTeste[i]['pergunta'],
+                          valor: perguntasTeste[i]['valor'],
+                          onPressed: () {
+                            if (perguntasTeste[i]['valor']) {
+                              perguntasTeste[i]['valor'] = false;
+                            } else {
+                              perguntasTeste[i]['valor'] = true;
+                            }
+                            setState(() {});
+                          },
+                        ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      CustomButton(
+                        color: cor_base,
+                        cor_indicador: Colors.white,
+                        title: Text(
+                          'Concluir',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          /*
+                          passando as respostas do usuario para o vetor lsb
+                          */
+                          int cont = 0;
+                          for (int i = 0; i < perguntasTeste.length; i++) {
+                            lsb[i] = perguntasTeste[i]['valor'];
+                            if (lsb[i] == true) cont++;
                           }
-                          setState(() {});
+                          //instanciando a classe respostas
+                          Resposta resposta = Resposta();
+                          int totaltrue = perguntasTeste.length - cont;
+                          String resultadoQ = '';
+                          if (totaltrue >= 7) {
+                            resultadoQ = 'verde';
+                          } else if (totaltrue >= 2 && totaltrue <= 6) {
+                            resultadoQ = 'amarelo';
+                          } else if (totaltrue >= 7 && totaltrue <= 8) {
+                            resultadoQ = 'vermelho';
+                          }
+                          print('cor: ' + resultadoQ);
+                          for (int i = 0; i < perguntasTeste.length; i++) {
+                            if (i == 6 && perguntasTeste[i]['valor'] == true) ;
+                            resultadoQ = 'vermelho';
+                          }
+                          resposta.respostas = resultadoQ;
+                          resposta.data = new DateTime.now();
+                          resposta.idUsuario = idUsuario;
+
+                          VerificarQuestionario vrq = VerificarQuestionario();
+                          var situacao =
+                              await vrq.verficarRespostaUsuario(idUsuario);
+                          if (situacao) {
+                            resposta.editar(resposta, idUsuario);
+                            if (widget.refazerTeste) {
+                              Navigator.pop(context);
+                            }
+
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Home(),
+                              ),
+                            );
+                          } else {
+                            print('//////////////////////');
+                            resposta.cadastrar(resposta);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Home(),
+                              ),
+                            );
+                          }
                         },
                       ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    CustomButton(
-                      color: cor_base,
-                      cor_indicador: Colors.white,
-                      title: Text(
-                        'Concluir',
-                        style: TextStyle(color: Colors.white),
+                      SizedBox(
+                        height: 50,
                       ),
-                      onPressed: () async {
-                        /*
-                        passando as respostas do usuario para o vetor lsb
-                        */
-                        int cont = 0;
-                        for (int i = 0; i < perguntasTeste.length; i++) {
-                          lsb[i] = perguntasTeste[i]['valor'];
-                          if (lsb[i] == true) cont++;
-                        }
-                        //instanciando a classe respostas
-                        Resposta resposta = Resposta();
-                        int totaltrue = perguntasTeste.length - cont;
-                        String resultadoQ = '';
-                        if (totaltrue >= 7) {
-                          resultadoQ = 'verde';
-                        } else if (totaltrue >= 2 && totaltrue <= 6) {
-                          resultadoQ = 'amarelo';
-                        } else if (totaltrue > 0 && totaltrue <= 1) {
-                          resultadoQ = 'vermelho';
-                        }
-                        for (int i = 0; i < perguntasTeste.length; i++) {
-                          if (i == 7 && perguntasTeste[i]['valor'] == true) ;
-                          resultadoQ = 'vermelho';
-                        }
-                        resposta.respostas = resultadoQ;
-                        resposta.data = new DateTime.now();
-                        resposta.idUsuario = idUsuario;
-
-                        VerificarQuestionario vrq = VerificarQuestionario();
-                        var situacao =
-                            await vrq.verficarRespostaUsuario(idUsuario);
-                        if (situacao) {
-                          resposta.editar(resposta, idUsuario);
-                          Navigator.pop(context);
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
-                        } else {
-                          resposta.cadastrar(resposta);
-                          Navigator.pop(context);
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

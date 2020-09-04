@@ -400,7 +400,11 @@ class _Tela_HomeState extends State<Tela_Home> {
                     )
                   ],
                 ),
+<<<<<<< HEAD
                 content: Text('Deseja sair da sua conta ?',
+=======
+                content: Text('deseja sair da sua conta ?',
+>>>>>>> 5318b3781a28cf995c7a446da13c57679f823f8a
                     style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.center),
                 actions: [

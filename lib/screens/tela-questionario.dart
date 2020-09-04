@@ -165,6 +165,7 @@ class _QuestionarioState extends State<Questionario> {
                             resultadoQ = 'verde';
                           } else if (totaltrue >= 2 && totaltrue <= 6) {
                             resultadoQ = 'amarelo';
+<<<<<<< HEAD
                           } else if (totaltrue >= 7 && totaltrue <= 8) {
                             resultadoQ = 'vermelho';
                           }
@@ -173,6 +174,16 @@ class _QuestionarioState extends State<Questionario> {
                             if (i == 6 && perguntasTeste[i]['valor'] == true) ;
                             resultadoQ = 'vermelho';
                           }
+=======
+                          } else if (totaltrue >= 0 && totaltrue <= 1) {
+                            resultadoQ = 'vermelho';
+                          }
+                          print('cor: ' + resultadoQ);
+                          /* for (int i = 0; i < perguntasTeste.length; i++) {
+                            if (i == 7 && perguntasTeste[i]['valor'] == true) ;
+                            resultadoQ = 'vermelho';
+                          }*/
+>>>>>>> 5318b3781a28cf995c7a446da13c57679f823f8a
                           resposta.respostas = resultadoQ;
                           resposta.data = new DateTime.now();
                           resposta.idUsuario = idUsuario;

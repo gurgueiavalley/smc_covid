@@ -538,7 +538,11 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "5.5.2"
+=======
+    version: "5.5.1"
+>>>>>>> 5318b3781a28cf995c7a446da13c57679f823f8a
   url_launcher_linux:
     dependency: transitive
     description:
@@ -566,7 +570,11 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.1.3+1"
+=======
+    version: "0.1.3"
+>>>>>>> 5318b3781a28cf995c7a446da13c57679f823f8a
   uuid:
     dependency: transitive
     description:

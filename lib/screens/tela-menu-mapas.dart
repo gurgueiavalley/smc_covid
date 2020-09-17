@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smccovid/components/botton-home.dart';
+import 'package:smccovid/components/botton-out.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
 import 'package:smccovid/screens/tela-aglomeracao.dart';
@@ -37,15 +38,7 @@ class _MenuMapasState extends State<MenuMapas> {
                                 fontSize: 30,
                                 color: Colors.white),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              // return _alerta();
-                              return _alerta();
-                            },
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(imageUrl),
-                            ),
-                          )
+                          BottonOut()
                         ],
                       ),
                       Center(

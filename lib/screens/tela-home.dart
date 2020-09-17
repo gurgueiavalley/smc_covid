@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smccovid/components/botton-home.dart';
+import 'package:smccovid/components/botton-out.dart';
 import 'package:smccovid/components/sintomas.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
@@ -77,21 +79,14 @@ class _Tela_HomeState extends State<Tela_Home> {
                                 color: Colors.white),
                           ),
                           Text(
-                            googleSignIn.currentUser.displayName,
+                            name,
                             style: TextStyle(
                               fontSize: 26,
                               color: Colors.white,
                             ),
                           ),
                           Expanded(child: Container()),
-                          GestureDetector(
-                            onTap: () {
-                              return _alerta();
-                            },
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(imageUrl),
-                            ),
-                          )
+                          BottonOut(),
                         ],
                       ),
                       valor == true
@@ -159,7 +154,7 @@ class _Tela_HomeState extends State<Tela_Home> {
                                                 style: TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.yellow[700],
+                                                  color: Colors.yellow.shade800,
                                                 ))
                                             : cor == '[{resposta: verde}]'
                                                 ? Text('Nivel 1',
@@ -167,14 +162,16 @@ class _Tela_HomeState extends State<Tela_Home> {
                                                       fontSize: 20,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors.green[700],
+                                                      color:
+                                                          Colors.green.shade800,
                                                     ))
                                                 : Text('Nivel 3',
                                                     style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors.red,
+                                                      color:
+                                                          Colors.red.shade800,
                                                     ))
                                       ],
                                     ),
@@ -187,44 +184,66 @@ class _Tela_HomeState extends State<Tela_Home> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: [
-                                          Container(
-                                              child: cor ==
-                                                      '[{resposta: amarelo}]'
-                                                  ? Text(
-                                                      'Você tem uma possibilidade média de está com a COVID 19',
-                                                      style: TextStyle(
+                                          Expanded(
+                                            flex: 3,
+                                            child: Container(
+                                                child: cor ==
+                                                        '[{resposta: amarelo}]'
+                                                    ? AutoSizeText(
+                                                        'Você se encaixa na categoria de risco.',
+                                                        style: TextStyle(
                                                           color: Colors
-                                                              .yellow[700],
-                                                          fontSize: 18),
-                                                    )
-                                                  : cor == '[{resposta: verde}]'
-                                                      ? Text(
-                                                          'Você possivelmente não está com a COVID 19',
-                                                          style: TextStyle(
+                                                              .yellow.shade800,
+                                                        ),
+                                                        maxFontSize: 18,
+                                                        minFontSize: 14,
+                                                      )
+                                                    : cor ==
+                                                            '[{resposta: verde}]'
+                                                        ? AutoSizeText(
+                                                            'Você possivelmente não está com a COVID 19',
+                                                            style: TextStyle(
                                                               color: Colors
                                                                   .green[700],
-                                                              fontSize: 18),
-                                                        )
-                                                      : Text(
-                                                          'Você tem uma grande possibilidade de está com a COVID 19',
-                                                          style: TextStyle(
-                                                              color: Colors.red,
-                                                              fontSize: 16),
-                                                        )),
+                                                            ),
+                                                            maxFontSize: 18,
+                                                            minFontSize: 14,
+                                                          )
+                                                        : AutoSizeText(
+                                                            'Você tem uma grande possibilidade de está com a COVID 19',
+                                                            style: TextStyle(
+                                                              color: Colors
+                                                                  .red.shade800,
+                                                            ),
+                                                            maxFontSize: 18,
+                                                            minFontSize: 14,
+                                                          )),
+                                          ),
                                           Divider(
                                             color: Colors.black,
                                           ),
-                                          cor == '[{resposta: vermelho}]' ||
-                                                  cor == '[{resposta: amarelo}]'
-                                              ? Text(
-                                                  'Procure um Hospital mais próximo.',
+                                          cor == '[{resposta: vermelho}]'
+                                              ? AutoSizeText(
+                                                  'Procure um hospital para fazer um teste.',
                                                   style: TextStyle(
-                                                    color: cor_base,
+                                                    color: Colors.red.shade800,
                                                   ),
                                                 )
-                                              : Text(
-                                                  '.',
-                                                ),
+                                              : cor == '[{resposta: verde}]'
+                                                  ? AutoSizeText(
+                                                      'Continue se cuidado.',
+                                                      style: TextStyle(
+                                                        color:
+                                                            Colors.green[700],
+                                                      ),
+                                                    )
+                                                  : AutoSizeText(
+                                                      'Continue se cuidado ou procure um hospital para fazer um teste.',
+                                                      style: TextStyle(
+                                                        color: Colors
+                                                            .yellow.shade800,
+                                                      ),
+                                                    ),
                                           SizedBox(
                                             height: 10,
                                           ),
@@ -370,83 +389,5 @@ class _Tela_HomeState extends State<Tela_Home> {
     } else {
       throw 'Could not launch $url';
     }
-  }
-
-  _alerta() {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Align(
-              alignment: Alignment.bottomLeft,
-              child: AlertDialog(
-                backgroundColor: cor_base,
-                title: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.white),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/logo.png',
-                          scale: 6,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'Sair',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-<<<<<<< HEAD
-                content: Text('Deseja sair da sua conta ?',
-=======
-                content: Text('deseja sair da sua conta ?',
->>>>>>> 5318b3781a28cf995c7a446da13c57679f823f8a
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center),
-                actions: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 50, right: 60),
-                      child: Row(
-                        children: [
-                          FlatButton(
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.pop(context);
-                                  signOutGoogle();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Tela_Login()));
-                                });
-                              },
-                              child: Text(
-                                'Sair',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.start,
-                              )),
-                          FlatButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'Cancelar',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
-                                textAlign: TextAlign.start,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ));
-        });
   }
 }

@@ -47,7 +47,7 @@ class _TelaSelecaoInstituicaoState extends State<TelaSelecaoInstituicao> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "Escolha sua instituição",
+                            "Escolha sua instituição: ",
                             style: TextStyle(fontSize: 19),
                           )
                         ],
@@ -86,7 +86,7 @@ class _TelaSelecaoInstituicaoState extends State<TelaSelecaoInstituicao> {
                                             Image.network(
                                               dados.data['data']['instituicoes']
                                                   [index]['img'],
-                                              width: 100,
+                                              width: 120,
                                             ),
                                             Text(
                                               dados.data['data']['instituicoes']

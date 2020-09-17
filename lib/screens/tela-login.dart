@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:smccovid/components/custom-botton.dart';
 import 'package:smccovid/constants/constants.dart';
-import 'package:smccovid/models/resposta.dart';
 import 'package:smccovid/screens/home.dart';
 import 'package:smccovid/screens/tela-questionario.dart';
 import 'package:smccovid/screens/verificar-login.dart';
 import 'package:smccovid/screens/verificar_questionario.dart';
 import '../models/contactchecklist.dart';
-import '../models/contactchecklist.dart';
-import '../models/contactchecklist.dart';
-import '../models/contactchecklist.dart';
-import '../models/instituicao.dart';
-import '../models/instituicao.dart';
 import '../models/usuario.dart';
-import 'sign_in.dart';
 import 'sign_in.dart';
 
 class Tela_Login extends StatefulWidget {
@@ -156,30 +149,6 @@ class _Tela_LoginState extends State<Tela_Login> {
           ),
           SizedBox(
             height: 30,
-          ),
-          CustomButton(
-            icon: Icon(
-              MaterialCommunityIcons.facebook,
-              color: cor_base,
-              size: 35,
-            ),
-            title: Text(
-              'FACEBOOK',
-              style: TextStyle(
-                color: cor_base,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onPressed: _press
-                ? () {
-                    print('pressionado');
-                    _press = false;
-                    setState(
-                      () {},
-                    );
-                  }
-                : null,
           ),
           Expanded(
             child: Container(),

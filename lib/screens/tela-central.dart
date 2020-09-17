@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smccovid/components/botton-out.dart';
 import 'package:smccovid/components/botton-telefone.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/screens/sign_in.dart';
 import 'package:smccovid/screens/tela-login.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smccovid/screens/tela-home.dart';
-
-
 
 class Tela_Central extends StatefulWidget {
   @override
@@ -41,16 +40,7 @@ class _Tela_CentralState extends State<Tela_Central> {
                             fontSize: 30,
                             color: Colors.white),
                       ),
-                    GestureDetector(
-                            onTap: ()  {
-                            
-                             return _alerta();
-                                                  
-                            },
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(imageUrl),
-                            ),
-                          )
+                      BottonOut()
                     ],
                   ),
                   Center(
@@ -142,15 +132,18 @@ class _Tela_CentralState extends State<Tela_Central> {
       throw 'Could not launch $url';
     }
   }
+
   _launchURLWhatsapp() async {
-    const url = "https://api.whatsapp.com/send?phone=556199380031&text=oi&source=&data=&app_absent=";
+    const url =
+        "https://api.whatsapp.com/send?phone=556199380031&text=oi&source=&data=&app_absent=";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
-   _alerta() {
+
+  _alerta() {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -190,7 +183,6 @@ class _Tela_CentralState extends State<Tela_Central> {
                           FlatButton(
                               onPressed: () {
                                 setState(() {
-                                  
                                   //Future.delayed(Duration(seconds: 1));
                                   Navigator.pop(context);
                                   signOutGoogle();
@@ -225,5 +217,4 @@ class _Tela_CentralState extends State<Tela_Central> {
               ));
         });
   }
-  
 }

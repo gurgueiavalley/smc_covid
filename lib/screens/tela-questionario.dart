@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:smccovid/components/item_pergunta.dart';
-import 'package:smccovid/models/pergunta.dart';
 import 'package:smccovid/models/resposta.dart';
 import 'package:smccovid/models/usuario.dart';
 import 'package:smccovid/screens/home.dart';
 import 'package:smccovid/screens/sign_in.dart';
-import 'package:smccovid/screens/verificar_questionario.dart';
 import '../components/custom-botton.dart';
 import '../constants/constants.dart';
 
@@ -39,7 +36,10 @@ var perguntasTeste = [
     'valor': false
   },
   {'pergunta': 'Realizou consulta médica?', 'valor': false},
-  {'pergunta': 'Realizou teste para a COVID-19?', 'valor': false},
+  {
+    'pergunta': 'Realizou teste para a COVID-19 nos últimos 7 dias?',
+    'valor': false
+  },
   {'pergunta': 'O resultado deu positivo?', 'valor': false},
   {
     'pergunta':
@@ -47,7 +47,8 @@ var perguntasTeste = [
     'valor': false
   },
   {
-    'pergunta': 'Possui problemas como, coração, obesidade, etc. ',
+    'pergunta':
+        'Possui problemas como, coração, obesidade, ou outras comorbidades. ',
     'valor': false
   },
 ];
@@ -66,6 +67,7 @@ class _QuestionarioState extends State<Questionario> {
       lsb.add(false);
       perguntasTeste[i]['valor'] = false;
     }
+    print(widget.refazerTeste);
   }
 
   @override
@@ -148,72 +150,7 @@ class _QuestionarioState extends State<Questionario> {
                           'Concluir',
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () async {
-                          /*
-                          passando as respostas do usuario para o vetor lsb
-                          */
-                          int cont = 0;
-                          for (int i = 0; i < perguntasTeste.length; i++) {
-                            lsb[i] = perguntasTeste[i]['valor'];
-                            if (lsb[i] == true) cont++;
-                          }
-                          //instanciando a classe respostas
-                          Resposta resposta = Resposta();
-                          int totaltrue = perguntasTeste.length - cont;
-                          String resultadoQ = '';
-                          if (totaltrue >= 7) {
-                            resultadoQ = 'verde';
-                          } else if (totaltrue >= 2 && totaltrue <= 6) {
-                            resultadoQ = 'amarelo';
-<<<<<<< HEAD
-                          } else if (totaltrue >= 7 && totaltrue <= 8) {
-                            resultadoQ = 'vermelho';
-                          }
-                          print('cor: ' + resultadoQ);
-                          for (int i = 0; i < perguntasTeste.length; i++) {
-                            if (i == 6 && perguntasTeste[i]['valor'] == true) ;
-                            resultadoQ = 'vermelho';
-                          }
-=======
-                          } else if (totaltrue >= 0 && totaltrue <= 1) {
-                            resultadoQ = 'vermelho';
-                          }
-                          print('cor: ' + resultadoQ);
-                          /* for (int i = 0; i < perguntasTeste.length; i++) {
-                            if (i == 7 && perguntasTeste[i]['valor'] == true) ;
-                            resultadoQ = 'vermelho';
-                          }*/
->>>>>>> 5318b3781a28cf995c7a446da13c57679f823f8a
-                          resposta.respostas = resultadoQ;
-                          resposta.data = new DateTime.now();
-                          resposta.idUsuario = idUsuario;
-
-                          VerificarQuestionario vrq = VerificarQuestionario();
-                          var situacao =
-                              await vrq.verficarRespostaUsuario(idUsuario);
-                          if (situacao) {
-                            resposta.editar(resposta, idUsuario);
-                            if (widget.refazerTeste) {
-                              Navigator.pop(context);
-                            }
-
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Home(),
-                              ),
-                            );
-                          } else {
-                            print('//////////////////////');
-                            resposta.cadastrar(resposta);
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Home(),
-                              ),
-                            );
-                          }
-                        },
+                        onPressed: _verificarRespostaUsuario,
                       ),
                       SizedBox(
                         height: 50,
@@ -227,5 +164,56 @@ class _QuestionarioState extends State<Questionario> {
         ),
       ),
     );
+  }
+
+  _verificarRespostaUsuario() async {
+    print(perguntasTeste);
+    int cont = 0;
+    for (int i = 0; i < perguntasTeste.length; i++) {
+      lsb[i] = perguntasTeste[i]['valor'];
+      if (lsb[i] == true) cont++;
+    }
+    //instanciando a classe respostas
+    Resposta resposta = Resposta();
+    int totaltrue = perguntasTeste.length - cont;
+    String resultadoQ = '';
+    if (totaltrue >= 7) {
+      resultadoQ = 'verde';
+    } else if (totaltrue >= 2 && totaltrue <= 6) {
+      resultadoQ = 'amarelo';
+    } else if (totaltrue >= 7 && totaltrue <= 8) {
+      resultadoQ = 'vermelho';
+    }
+    print('cor 1º: ' + resultadoQ);
+    if (perguntasTeste[6]['valor'] == true) {
+      resultadoQ = 'vermelho';
+    } else if (perguntasTeste[8]['valor'] == true) {
+      resultadoQ = 'amarelo';
+    }
+    resposta.respostas = resultadoQ;
+    resposta.data = new DateTime.now();
+    resposta.idUsuario = idUsuario;
+    print('cor 2º: ' + resultadoQ);
+    //VerificarQuestionario vrq = VerificarQuestionario();
+    //var situacao = await vrq.verficarRespostaUsuario(idUsuario);
+    if (widget.refazerTeste) {
+      resposta.editar(resposta, idUsuario);
+      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    } else {
+      print('//////////////////////');
+      resposta.cadastrar(resposta);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    }
   }
 }

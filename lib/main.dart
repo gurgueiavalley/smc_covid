@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smccovid/constants/constants.dart';
+import 'package:smccovid/screens/tela-selecao-campus.dart';
 
 import 'screens/splash.dart';
 
@@ -12,6 +13,7 @@ main(List<String> args) {
   runApp(MaterialApp(
     //home: Tela_Apresentacao(),
     //home: Tela_Login(),
+    //home: TelaSelecaoCampus(),
     home: Tela_Splash(),
     // home: test(),
     debugShowCheckedModeBanner: false,

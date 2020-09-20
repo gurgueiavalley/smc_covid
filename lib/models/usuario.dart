@@ -10,6 +10,9 @@ class Usuario extends Pessoa {
   double latitude;
   double longitude;
   int idInstituicao;
+  String campus;
+  String ocupacao;
+  bool testCovid;
   /* Construtor da classe Usuario  */
   Usuario(
       {int id,
@@ -19,7 +22,10 @@ class Usuario extends Pessoa {
       String idGoogle,
       int idade,
       double latitude,
-      double longitude})
+      double longitude,
+      String campus,
+      String ocupacao,
+      bool testCovid})
       : super(id, nome, email);
 
   /*  Método cadastrar Usuario  */
@@ -33,7 +39,11 @@ class Usuario extends Pessoa {
         idade: ${usr.idade}, 
         latitude: "${usr.latitude}", 
         longitude: "${usr.longitude}", 
-        nome: "${usr.nome}"}) {
+        nome: "${usr.nome}",
+        campus: "${usr.campus}",
+        ocupacao: "${usr.ocupacao}",
+        teste_covid: "${usr.testCovid}",
+        }) {
     affected_rows
   }
 }
@@ -102,6 +112,22 @@ class Usuario extends Pessoa {
           latitude: "${usr.latitude}", 
           longitude: "${usr.longitude}", 
           id_instituicao: "${usr.idInstituicao}"           
+        }){
+          affected_rows
+        }
+      }
+    """;
+    var res = await hasuraConnect.mutation(query);
+    return true;
+  }
+
+  /* Método editar Usuario */
+  covid_positivo(Usuario usr, String idGoogle) async {
+    String query = """
+      mutation MyMutation {
+        update_usuarios(where: {id_google: {_eq: "$idGoogle"}},
+         _set: { 
+          teste_covid: "${usr.testCovid}"           
         }){
           affected_rows
         }

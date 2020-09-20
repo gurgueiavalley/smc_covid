@@ -14,10 +14,28 @@ class Tela_Login extends StatefulWidget {
   @override
   _Tela_LoginState createState() => _Tela_LoginState();
   int idInstitucao;
-  Tela_Login({Key key, @required this.idInstitucao}) : super(key: key);
+  String campus;
+  String ocupacao;
+  bool testCovid;
+  Tela_Login(
+      {Key key,
+      @required this.idInstitucao,
+      @required this.campus,
+      @required this.ocupacao,
+      @required this.testCovid})
+      : super(key: key);
 }
 
 class _Tela_LoginState extends State<Tela_Login> {
+  @override
+  void initState() {
+    super.initState();
+
+    print(widget.campus);
+    print(widget.ocupacao);
+    print(widget.testCovid);
+  }
+
   bool _press = true;
   @override
   Widget build(BuildContext context) {
@@ -57,14 +75,6 @@ class _Tela_LoginState extends State<Tela_Login> {
             onPressed: () {
               signInWithGoogle().whenComplete(() async {
                 print('Passou');
-
-                //pegando dados da tabela resposta no banco
-                /* var dados = await hasuraConnect.query(
-                  Resposta().verificaResposta(
-                    idUsuario,
-                  ),
-                ); */
-
                 //Cadastrando Usuario no banco sqlite
                 ContactCheckList check = ContactCheckList();
                 Contact contact = Contact();
@@ -132,6 +142,10 @@ class _Tela_LoginState extends State<Tela_Login> {
                   usuario.latitude = dados_localizacao['position']['latitude'];
                   usuario.longitude =
                       dados_localizacao['position']['longitude'];
+                  //pegando informacoes anteriores
+                  usuario.campus = widget.campus;
+                  usuario.ocupacao = widget.ocupacao;
+                  usuario.testCovid = widget.testCovid;
                   /*Mudar quando tiver pegando o id da instituicao*/
                   usuario.idInstituicao = widget.idInstitucao;
                   //cadastrando o usuario na tabela usuarios

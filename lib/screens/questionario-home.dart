@@ -9,9 +9,12 @@ import 'package:smccovid/screens/verificar_questionario.dart';
 import '../components/custom-botton.dart';
 import '../constants/constants.dart';
 
-class Questionario extends StatefulWidget {
+class QuestionarioHome extends StatefulWidget {
+  final bool refazerTeste;
+  const QuestionarioHome({Key key, this.refazerTeste}) : super(key: key);
+
   @override
-  _QuestionarioState createState() => _QuestionarioState();
+  _QuestionarioHomeState createState() => _QuestionarioHomeState();
 }
 
 var perguntasTeste = [
@@ -52,7 +55,7 @@ var perguntasTeste = [
 ];
 var lsb = [];
 
-class _QuestionarioState extends State<Questionario> {
+class _QuestionarioHomeState extends State<QuestionarioHome> {
   List _respostar = List();
 
   @override
@@ -65,6 +68,7 @@ class _QuestionarioState extends State<Questionario> {
       lsb.add(false);
       perguntasTeste[i]['valor'] = false;
     }
+    print(widget.refazerTeste);
   }
 
   @override
@@ -172,7 +176,7 @@ class _QuestionarioState extends State<Questionario> {
     }
     //instanciando a classe respostas
     Resposta resposta = Resposta();
-    //instanciando a classe usuario
+    //
     Usuario usuario = Usuario();
     int totaltrue = perguntasTeste.length - cont;
     String resultadoQ = '';
@@ -202,6 +206,24 @@ class _QuestionarioState extends State<Questionario> {
     if (situacao) {
       resposta.editar(resposta, idUsuario);
       Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    } else if (widget.refazerTeste) {
+      resposta.editar(resposta, idUsuario);
+      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    } else if (widget.refazerTeste == false) {
+      print('//////////////////////');
+      resposta.cadastrar(resposta);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

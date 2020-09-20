@@ -5,6 +5,7 @@ import 'package:smccovid/components/botton-home.dart';
 import 'package:smccovid/components/botton-out.dart';
 import 'package:smccovid/components/sintomas.dart';
 import 'package:smccovid/constants/constants.dart';
+import 'package:smccovid/screens/questionario-home.dart';
 import 'package:smccovid/screens/sign_in.dart';
 import 'package:smccovid/screens/tela-estatistica.dart';
 import 'package:smccovid/screens/tela-login.dart';
@@ -263,7 +264,7 @@ class _Tela_HomeState extends State<Tela_Home> {
                                               onPressed: () {
                                                 showDialog(
                                                   context: context,
-                                                  child: Questionario(
+                                                  child: QuestionarioHome(
                                                     refazerTeste: true,
                                                   ),
                                                 );

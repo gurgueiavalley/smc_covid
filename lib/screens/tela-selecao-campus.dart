@@ -1,17 +1,26 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:smccovid/components/custom-botton.dart';
 import 'package:smccovid/constants/constants.dart';
+import 'package:smccovid/screens/tela-login.dart';
+import 'package:smccovid/screens/tela-selecao-instituicao.dart';
 
 class TelaSelecaoCampus extends StatefulWidget {
   @override
   _TelaSelecaoCampusState createState() => _TelaSelecaoCampusState();
+  int idInstitucao;
+  TelaSelecaoCampus({
+    Key key,
+    @required this.idInstitucao,
+  }) : super(key: key);
 }
 
 class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
   String valorDropdownCampus = "Selecione o seu campus";
   String valorDropdownOcupacao = "Selecione sua ocupação";
   bool valor_switch = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +54,6 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                       SizedBox(
                         height: MediaQuery.of(context).size.width / 5,
                       ),
-                      
                       Column(
                         children: [
                           Padding(
@@ -53,9 +61,11 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   "Campus: ",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  maxFontSize: 20,
+                                  minFontSize: 16,
                                 ),
                                 DropdownButton<String>(
                                   value: valorDropdownCampus,
@@ -66,7 +76,7 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                                   iconSize: 24,
                                   elevation: 5,
                                   style:
-                                  TextStyle(color: cor_base, fontSize: 20),
+                                      TextStyle(color: cor_base, fontSize: 18),
                                   onChanged: (String novoValor) {
                                     setState(() {
                                       valorDropdownCampus = novoValor;
@@ -74,26 +84,26 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                                   },
                                   items: <String>[
                                     'Selecione o seu campus',
-                                    'ANGICAL',
-                                    'CAMPO MAIOR',
-                                    'COCAL',
-                                    'CORRENTE',
-                                    'TERESINA DIRCEU ARCOVERDE',
-                                    'FLORIANO',
-                                    'JOSÉ DE FREITAS',
-                                    'OEIRAS',
-                                    'PARNAÍBA',
-                                    'PAULISTANA',
-                                    'PEDRO II',
-                                    'PICOS',
-                                    'PIO IX',
-                                    'PIRIPIRI',
-                                    'SÃO JOÃO',
-                                    'SÃO RAIMUNDO NONATO',
-                                    'TERESINA CENTRAL',
-                                    'TERESINA ZONA SUL',
-                                    'URUÇUÍ',
-                                    'VALENÇA'
+                                    'Angical',
+                                    'Campo Maior',
+                                    'Cocal',
+                                    'Corrente',
+                                    'Teresina Dirceu Arcoverde',
+                                    'Floriano',
+                                    'José De Freitas',
+                                    'Oeiras',
+                                    'Parnaíba',
+                                    'Paulistana',
+                                    'Pedro II',
+                                    'Picos',
+                                    'Pio IX',
+                                    'Piripiri',
+                                    'São João',
+                                    'São Raimundo Nonato',
+                                    'Teresina Central',
+                                    'Teresuba Zona Sul',
+                                    'Urucuí',
+                                    'Valença'
                                   ].map<DropdownMenuItem<String>>(
                                       (String valor) {
                                     return DropdownMenuItem<String>(
@@ -113,9 +123,11 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   "Ocupação: ",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  maxFontSize: 20,
+                                  minFontSize: 16,
                                 ),
                                 DropdownButton<String>(
                                   value: valorDropdownOcupacao,
@@ -126,7 +138,7 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                                   iconSize: 24,
                                   elevation: 5,
                                   style:
-                                      TextStyle(color: cor_base, fontSize: 20),
+                                      TextStyle(color: cor_base, fontSize: 18),
                                   onChanged: (String novoValor) {
                                     setState(() {
                                       valorDropdownOcupacao = novoValor;
@@ -138,7 +150,7 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                                     'Professor',
                                     'Terceirizado',
                                     'Tec. Administrativo',
-                                    'Setor Saúde'
+                                    'Pai/Parente/Responsável'
                                   ].map<DropdownMenuItem<String>>(
                                       (String valor) {
                                     return DropdownMenuItem<String>(
@@ -158,7 +170,9 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                               Expanded(
                                 child: Text(
                                   "Você testou positivo para covid-19 e se recuperou ?",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Switch(
@@ -174,7 +188,7 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                         ],
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height / 3.5,
+                        height: MediaQuery.of(context).size.width / 3.5,
                       ),
                       CustomButton(
                           icon: Icon(
@@ -190,17 +204,20 @@ class _TelaSelecaoCampusState extends State<TelaSelecaoCampus> {
                                 fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Tela_Login(
+                                        idInstitucao: widget.idInstitucao,
+                                        campus: valorDropdownCampus,
+                                        ocupacao: valorDropdownOcupacao,
+                                        testCovid: valor_switch)));
                             print(valorDropdownCampus);
                             print(valorDropdownOcupacao);
                             print(valor_switch);
                           })
-                    ]
-                    )
-                  )
-                ),
-              ]
-            ),
-          )     
-        );
-      }
-    }
+                    ]))),
+      ]),
+    ));
+  }
+}

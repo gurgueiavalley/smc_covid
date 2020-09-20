@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smccovid/constants/constants.dart';
 import 'package:smccovid/models/instituicao.dart';
+import 'package:smccovid/screens/tela-selecao-campus.dart';
 
 import 'tela-login.dart';
 
@@ -101,15 +102,29 @@ class _TelaSelecaoInstituicaoState extends State<TelaSelecaoInstituicao> {
                                       onTap: () {
                                         int id = dados.data['data']
                                             ['instituicoes'][index]['id'];
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
+                                        String nome = dados.data['data']
+                                            ['instituicoes'][index]['nome'];
+
+                                        if (nome == 'IFPI') {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Tela_Login(
-                                                      idInstitucao: id,
-                                                    )));
+                                                    TelaSelecaoCampus(idInstitucao: id,),
+                                              ));
+                                        } else {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Tela_Login(
+                                                          idInstitucao: id)));
+                                        }
+
                                         print(dados.data['data']['instituicoes']
                                             [index]['id']);
+                                        print(dados.data['data']['instituicoes']
+                                            [index]['nome']);
                                       },
                                     );
                                   });

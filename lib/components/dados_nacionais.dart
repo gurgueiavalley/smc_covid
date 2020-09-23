@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:smccovid/constants/constants.dart';
 
 class Nacional extends StatefulWidget {
@@ -56,6 +56,11 @@ class _NacionalState extends State<Nacional> {
                 mortes = snapshot.data['data']['deaths'].toString();
                 recuperados = snapshot.data['data']['recovered'].toString();
 
+                var controllerCasos = new MaskedTextController(text: casos, mask: '0.000.000');
+                var controllerMortes = new MaskedTextController(text: mortes, mask: '000.000');
+                var controllerRecuperados = new MaskedTextController(text: recuperados, mask: '0.000.000');
+
+
                 return Column(
                   children: [
                     Container(
@@ -91,7 +96,7 @@ class _NacionalState extends State<Nacional> {
                                   fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              pais,
+                              "Brasil",
                               style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w700,
@@ -114,7 +119,7 @@ class _NacionalState extends State<Nacional> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Text(
-                                casos,
+                                controllerCasos.text,
                                 style: TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.w700,
@@ -136,7 +141,7 @@ class _NacionalState extends State<Nacional> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Text(
-                                recuperados,
+                                controllerRecuperados.text,
                                 style: TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.w700,
@@ -158,7 +163,7 @@ class _NacionalState extends State<Nacional> {
                                   fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              mortes,
+                              controllerMortes.text,
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w700,

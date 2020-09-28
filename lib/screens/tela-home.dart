@@ -232,14 +232,14 @@ class _Tela_HomeState extends State<Tela_Home> {
                                                 )
                                               : cor == '[{resposta: verde}]'
                                                   ? AutoSizeText(
-                                                      'Continue se cuidado.',
+                                                      'Continue se cuidando.',
                                                       style: TextStyle(
                                                         color:
                                                             Colors.green[700],
                                                       ),
                                                     )
                                                   : AutoSizeText(
-                                                      'Continue se cuidado ou procure um hospital para fazer um teste.',
+                                                      'Continue se cuidando ou procure um hospital para fazer um teste.',
                                                       style: TextStyle(
                                                         color: Colors
                                                             .yellow.shade800,
